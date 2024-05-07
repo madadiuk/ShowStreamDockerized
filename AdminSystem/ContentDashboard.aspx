@@ -9,7 +9,9 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <p> this is a test page for content dashboard</p>
+            <p>This is a test page for content dashboard.</p>
+            <asp:Button ID="btnTestConnection" runat="server" Text="Test Database Connection" OnClick="btnTestConnection_Click" />
+            <asp:Label ID="lblMessage" runat="server" />
         </div>
     </form>
 </body>

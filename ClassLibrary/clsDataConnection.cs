@@ -28,8 +28,34 @@ public class clsDataConnection
 
     public clsDataConnection()
     {
-        connectionString = GetConnectionString();
+        // Set up the connection string directly here
+        connectionString = "Server=localhost,1433;Database=master;User Id=sa;Password=42714271Ma;";
+        connectionToDB = new SqlConnection(connectionString);
     }
+
+    public void TestConnection()
+    {
+        try
+        {
+            // Attempt to open the connection
+            connectionToDB.Open();
+            Console.WriteLine("Connection successful!");
+        }
+        catch (SqlException ex)
+        {
+            // Output the error if the connection fails
+            Console.WriteLine("Connection failed: " + ex.Message);
+        }
+        finally
+        {
+            // Ensure the connection is closed after the test
+            if (connectionToDB.State == ConnectionState.Open)
+            {
+                connectionToDB.Close();
+            }
+        }
+    }
+
 
     private string GetConnectionString()
     {
