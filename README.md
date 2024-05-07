@@ -2,6 +2,16 @@
 Explore a vast library of movies and TV series with ShowStream. Enjoy HD streaming, personalized profiles, offline viewing, and smart recommendations. Dive into endless entertainment!
 ![showStream Logo](https://github.com/madadiuk/ShowStream/assets/24778272/a44756b8-331d-4a28-a643-c02e6ef6b327)
 
+# Step 1: Install Docker
+Ensure Docker is installed on your system. You can download and install Docker Desktop from the Docker official website.
+
+# Step 2: Pull the SQL Server Docker Image
+
+docker pull mcr.microsoft.com/mssql/server:2019-latest
+
+# install docker:
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=42714271Ma" -p 1433:1433 --name sqlserver -v sqlvolume:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2019-latest
+
 # docker to start the existing container (if stopped):
 
 docker start sqlserver
