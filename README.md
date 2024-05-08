@@ -77,10 +77,13 @@ CREATE TABLE [dbo].[tblTransactions] (
     [Amount]          DECIMAL (19, 4) NULL,
     [TransactionDate] DATETIME        NULL,
     [PaymentMethod]   VARCHAR (50)    NULL,
+	[PaymentMethodDetails] VARCHAR(255) NULL, -- JSON or specific PayPal details like 'PayPalTransactionID'
     [Status]          VARCHAR (50)    NULL,
     PRIMARY KEY CLUSTERED ([TransactionID] ASC),
     FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID])
 );
+
+
 ##
 CREATE TABLE [dbo].[tblSeries] (
     [SeriesID]     INT           IDENTITY (1, 1) NOT NULL,
