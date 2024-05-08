@@ -504,7 +504,8 @@ END
 
 
 # Database ERD Diagram:
-![tblUsers (9)](https://github.com/madadiuk/ShowStream/assets/24778272/1b9e590f-df72-4acd-b2cb-bd2225a112a2)
+![tblUsers (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/510e2f4d-e447-47cb-8f48-b0750f5381be)
+
 
 ## tblUserProfiles
 This table holds additional personal information about users. Each record links to a tblUsers record and includes the user's first name, last name, and date of birth.
