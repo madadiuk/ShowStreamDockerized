@@ -49,38 +49,63 @@ p2731259
 
 
 ## datebase code
-CREATE TABLE [dbo].[tblUsers] (
-    [UserID]   INT           IDENTITY (1, 1) NOT NULL,
-    [Username] VARCHAR (255) NULL,
-    [Email]    VARCHAR (255) NULL,
-    [Password] VARCHAR (255) NULL,
-    [Role]     VARCHAR (50)  NULL,
-    PRIMARY KEY CLUSTERED ([UserID] ASC),
-    UNIQUE NONCLUSTERED ([Username] ASC)
+CREATE TABLE [dbo].[tblDownloads] (
+    [DownloadID]      INT          IDENTITY (1, 1) NOT NULL,
+    [UserID]          INT          NULL,
+    [MovieID]         INT          NULL,
+    [SeriesID]        INT          NULL,
+    [DownloadDate]    DATETIME     NULL,
+    [ContentType]     VARCHAR (50) NULL,
+    [DownloadQuality] VARCHAR (50) NULL,
+    [Status]          VARCHAR (50) NULL,
+    [FileSize]        BIGINT       NULL,
+    PRIMARY KEY CLUSTERED ([DownloadID] ASC),
+    FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID]),
+    FOREIGN KEY ([MovieID]) REFERENCES [dbo].[tblMovies] ([MovieID]),
+    FOREIGN KEY ([SeriesID]) REFERENCES [dbo].[tblSeries] ([SeriesID])
 );
 
-##
-CREATE TABLE [dbo].[tblUserProfiles] (
-    [ProfileID]   INT           IDENTITY (1, 1) NOT NULL,
-    [UserID]      INT           NULL,
-    [FirstName]   VARCHAR (255) NULL,
-    [LastName]    VARCHAR (255) NULL,
-    [DateOfBirth] DATE          NULL,
-    PRIMARY KEY CLUSTERED ([ProfileID] ASC),
-    FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID])
-);
+
 
 ##
-CREATE TABLE [dbo].[tblTransactions] (
-    [TransactionID]   INT             IDENTITY (1, 1) NOT NULL,
-    [UserID]          INT             NULL,
-    [Amount]          DECIMAL (19, 4) NULL,
-    [TransactionDate] DATETIME        NULL,
-    [PaymentMethod]   VARCHAR (50)    NULL,
-	[PaymentMethodDetails] VARCHAR(255) NULL, -- JSON or specific PayPal details like 'PayPalTransactionID'
-    [Status]          VARCHAR (50)    NULL,
-    PRIMARY KEY CLUSTERED ([TransactionID] ASC),
-    FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID])
+CREATE TABLE [dbo].[tblEpisodes] (
+    [EpisodeID]     INT           IDENTITY (1, 1) NOT NULL,
+    [SeriesID]      INT           NOT NULL,
+    [SeasonNumber]  INT           NOT NULL,
+    [EpisodeNumber] INT           NOT NULL,
+    [Title]         VARCHAR (255) NULL,
+    [Description]   VARCHAR (MAX) NULL,
+    [ReleaseDate]   DATE          NULL,
+    PRIMARY KEY CLUSTERED ([EpisodeID] ASC),
+    FOREIGN KEY ([SeriesID]) REFERENCES [dbo].[tblSeries] ([SeriesID])
+);
+
+
+
+##
+CREATE TABLE [dbo].[tblGenres] (
+    [GenreID]     INT           IDENTITY (1, 1) NOT NULL,
+    [Name]        VARCHAR (255) NULL,
+    [Description] VARCHAR (MAX) NULL,
+    PRIMARY KEY CLUSTERED ([GenreID] ASC)
+);
+
+
+
+
+##
+CREATE TABLE [dbo].[tblMovies] (
+    [MovieID]       INT           IDENTITY (1, 1) NOT NULL,
+    [Title]         VARCHAR (255) NULL,
+    [Description]   VARCHAR (MAX) NULL,
+    [GenreID]       INT           NULL,
+    [Director]      VARCHAR (255) NULL,
+    [ReleaseDate]   DATE          NULL,
+    [Duration]      INT           NULL,
+    [ParentMovieID] INT           NULL,
+    PRIMARY KEY CLUSTERED ([MovieID] ASC),
+    FOREIGN KEY ([GenreID]) REFERENCES [dbo].[tblGenres] ([GenreID]),
+    FOREIGN KEY ([ParentMovieID]) REFERENCES [dbo].[tblMovies] ([MovieID])
 );
 
 
@@ -97,40 +122,61 @@ CREATE TABLE [dbo].[tblSeries] (
     PRIMARY KEY CLUSTERED ([SeriesID] ASC),
     FOREIGN KEY ([GenreID]) REFERENCES [dbo].[tblGenres] ([GenreID])
 );
+
+
 ##
-CREATE TABLE [dbo].[tblMovies] (
-    [MovieID]     INT           IDENTITY (1, 1) NOT NULL,
-    [Title]       VARCHAR (255) NULL,
-    [Description] VARCHAR (MAX) NULL,
-    [GenreID]     INT           NULL,
-    [Director]    VARCHAR (255) NULL,
-    [ReleaseDate] DATE          NULL,
-    [Duration]    INT           NULL,
-    PRIMARY KEY CLUSTERED ([MovieID] ASC),
-    FOREIGN KEY ([GenreID]) REFERENCES [dbo].[tblGenres] ([GenreID])
+CREATE TABLE [dbo].[tblTransactions] (
+    [TransactionID]        INT             IDENTITY (1, 1) NOT NULL,
+    [UserID]               INT             NULL,
+    [Amount]               DECIMAL (19, 4) NULL,
+    [TransactionDate]      DATETIME        NULL,
+    [PaymentMethod]        VARCHAR (50)    NULL,
+    [PaymentMethodDetails] VARCHAR (255)   NULL,
+    [Status]               VARCHAR (50)    NULL,
+    PRIMARY KEY CLUSTERED ([TransactionID] ASC),
+    FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID])
 );
+
+
 ##
-CREATE TABLE [dbo].[tblGenres] (
-    [GenreID]     INT           IDENTITY (1, 1) NOT NULL,
-    [Name]        VARCHAR (255) NULL,
-    [Description] VARCHAR (MAX) NULL,
-    PRIMARY KEY CLUSTERED ([GenreID] ASC)
+CREATE TABLE [dbo].[tblUserProfiles] (
+    [ProfileID]   INT           IDENTITY (1, 1) NOT NULL,
+    [UserID]      INT           NULL,
+    [FirstName]   VARCHAR (255) NULL,
+    [LastName]    VARCHAR (255) NULL,
+    [DateOfBirth] DATE          NULL,
+    PRIMARY KEY CLUSTERED ([ProfileID] ASC),
+    FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID])
 );
+
 ##
-CREATE TABLE [dbo].[tblDownloads] (
-    [DownloadID]   INT          IDENTITY (1, 1) NOT NULL,
-    [UserID]       INT          NULL,
-    [MovieID]      INT          NULL,
-    [SeriesID]     INT          NULL,
-    [DownloadDate] DATETIME     NULL,
-    [ContentType]  VARCHAR (50) NULL,
-    [Status]       VARCHAR (50) NULL,
-    [FileSize]     BIGINT       NULL,
-    PRIMARY KEY CLUSTERED ([DownloadID] ASC),
-    FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID]),
+CREATE TABLE [dbo].[tblUsers] (
+    [UserID]   INT           IDENTITY (1, 1) NOT NULL,
+    [Username] VARCHAR (255) NULL,
+    [Email]    VARCHAR (255) NULL,
+    [Password] VARCHAR (255) NULL,
+    [Role]     VARCHAR (50)  NULL,
+    PRIMARY KEY CLUSTERED ([UserID] ASC),
+    UNIQUE NONCLUSTERED ([Username] ASC)
+);
+
+
+##
+CREATE TABLE [dbo].[tblVideoFiles] (
+    [VideoFileID]  INT           IDENTITY (1, 1) NOT NULL,
+    [MovieID]      INT           NULL,
+    [SeriesID]     INT           NULL,
+    [EpisodeID]    INT           NULL,
+    [VideoQuality] VARCHAR (50)  NOT NULL,
+    [FilePath]     VARCHAR (MAX) NOT NULL,
+    [FileSize]     BIGINT        NULL,
+    PRIMARY KEY CLUSTERED ([VideoFileID] ASC),
     FOREIGN KEY ([MovieID]) REFERENCES [dbo].[tblMovies] ([MovieID]),
-    FOREIGN KEY ([SeriesID]) REFERENCES [dbo].[tblSeries] ([SeriesID])
+    FOREIGN KEY ([SeriesID]) REFERENCES [dbo].[tblSeries] ([SeriesID]),
+    FOREIGN KEY ([EpisodeID]) REFERENCES [dbo].[tblEpisodes] ([EpisodeID])
 );
+
+
 
 ## stored procedures
 
