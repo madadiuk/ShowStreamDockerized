@@ -1021,3 +1021,42 @@ Relationship: Can be linked to tblMovies, tblSeries, or tblEpisodes, depending o
 Details:
 VideoFileID: Unique identifier for each video file.
 VideoQuality, FilePath, FileSize: Quality, storage path, and size of the video file.
+
+
+## Updated Individual Specifications
+
+Allocated Component: User Management System
+
+# Developer: Abir Shoukat (Student A)
+Overview:
+Responsible for managing user accounts, profiles, authentication, and roles. This component ensures users can register, log in, and manage their personal information securely.
+Table Design:
+tblUsers: Stores user credentials and roles.
+tblUserProfiles: Holds detailed user information like names and birthdates.
+New Responsibilities: Ensure that the unique constraints on Username and Email are enforced and that the security measures for storing passwords are up to date.
+Allocated Component: Content Management System
+
+
+# Developer: Md Abdus Salam Rafee (Student B)
+Overview:
+Handles all aspects of content within ShowStream, including movie and series metadata, genres, content categorization, and detailed episode management. Enables administrators to add, update, or remove content from the platform.
+Table Design:
+tblMovies: Includes movie details and references to genres, also manages movie sequels or prequels through ParentMovieID.
+tblSeries: Stores series information and genre classification.
+tblGenres: A reference table for movie and series genres.
+tblEpisodes: Manages detailed episode information within series, linking episodes to their respective series.
+New Responsibilities: Implement functionality for managing episodes within series and ensure that the relationships between movies, series, and genres are maintained properly.
+Allocated Component: Download and Transaction Management
+
+# Developer: Mo Madadi (Student C)
+Overview:
+The Download and Transaction Management component is tasked with tracking and managing user interactions concerning content acquisition. It handles the logistics of content downloads, including tracking download status and file sizes, as well as processing user transactions for any purchases or subscriptions within the platform.
+Table Design:
+tblDownloads: Manages the downloading of movies and series, tracking the user, the content, download quality, and status.
+tblTransactions: Tracks financial transactions such as purchases or subscriptions made by users.
+tblVideoFiles: Manages the actual video files associated with movies, series, or specific episodes, including their quality, file path, and size.
+New Responsibilities: Implement and manage the new tblVideoFiles table, ensuring that video files are properly linked to their corresponding movies, series, or episodes and handle the complexities of multiple formats and qualities for downloads.
+Additional Notes
+Integration Tasks: Ensure integration between components, particularly where tables overlap in responsibilities. For instance, content added or modified in the Content Management System must be correctly referenced in the Download and Transaction Management system.
+Security and Data Integrity: Each developer must ensure that data integrity is maintained in their components, especially where foreign keys and relationships are involved.
+Collaborative Testing: Coordinate testing across components to ensure that the system functions cohesively as a whole. This includes testing end-to-end workflows from user registration (handled by Student A) through content browsing and management (handled by Student B) to content downloading and transaction processing (handled by Student C).
