@@ -956,156 +956,70 @@ END
 ![tblUsers (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/510e2f4d-e447-47cb-8f48-b0750f5381be)
 
 
-## tblUserProfiles
-This table holds additional personal information about users. Each record links to a tblUsers record and includes the user's first name, last name, and date of birth.
+Updated ERD Description
+tblUsers
 
-ProfileID: A unique identifier for each user profile.
-UserID: The ID of the user this profile belongs to.
-FirstName: The user's first name.
-LastName: The user's last name.
-DateOfBirth: The user's date of birth.
+Purpose: This table stores essential information about all users, including credentials and roles.
+Details:
+UserID: Unique identifier for each user, primary key.
+Username: User's chosen username, must be unique.
+Email: User's email address, must be unique.
+Password: User's password, stored securely.
+Role: User's role (e.g., admin, regular user).
+tblUserProfiles
 
-## tblUsers
-This table stores the essential information of all users, including their credentials and roles within the platform.
+Purpose: Stores additional personal information about users.
+Relationship: Each profile is linked directly to a user in tblUsers.
+Details:
+ProfileID: Unique identifier for the user profile, primary key.
+FirstName, LastName, DateOfBirth: Personal details of the user.
+tblTransactions
 
-UserID: A unique identifier for each user.
-Username: The chosen username for the user, which must be unique.
-Email: The user's email address, which must be unique.
-Password: The user's password, stored in a hashed format for security.
-Role: The user's role, which could be a regular user or an admin, controlling access to different parts of the system.
+Purpose: Records financial transactions made by users.
+Relationship: Linked to tblUsers, indicating which user made each transaction.
+Details:
+TransactionID: Unique identifier for each transaction.
+Amount, TransactionDate: Financial details and date of transaction.
+PaymentMethod, Status: Method used (e.g., PayPal, credit card) and current status of the transaction.
+tblDownloads
 
-## tblTransactions
-This table records transactions made by users, which could involve purchasing subscriptions or content.
+Purpose: Tracks downloads initiated by users.
+Relationship: Linked to tblUsers, tblMovies, and tblSeries, showing what content the user downloaded.
+Details:
+DownloadID: Unique identifier for each download.
+DownloadDate, ContentType, DownloadQuality, Status, FileSize: Details about the download such as type, quality, status, and size.
+tblGenres
 
-TransactionID: A unique identifier for each transaction.
-UserID: The ID of the user who made the transaction.
-Amount: The financial amount of the transaction.
-TransactionDate: The date and time when the transaction occurred.
-PaymentMethod: The method used for the transaction (e.g., credit card, PayPal).
-Status: The current status of the transaction (e.g., completed, pending).
+Purpose: Defines different genres for categorization of movies and series.
+Details:
+GenreID: Unique identifier for each genre.
+Name, Description: Name and description of each genre.
+tblMovies
 
-## tblDownloads
-This table tracks the downloads initiated by users, detailing what content was downloaded, when, and the size of the files.
+Purpose: Stores details about movies available for streaming and downloading.
+Relationship: Linked to tblGenres for genre classification and optionally to other movies as sequels/prequels.
+Details:
+MovieID: Unique identifier for each movie.
+Title, Description, Director, ReleaseDate, Duration: Various details about the movie.
+ParentMovieID: Links to another movie ID if this movie is a sequel or related.
+tblSeries
 
-DownloadID: A unique identifier for each download event.
-UserID: The ID of the user who initiated the download.
-MovieID/SeriesID: The ID of the movie or series that was downloaded.
-DownloadDate: The date and time the download was initiated.
-ContentType: The type of content downloaded, either a movie or series.
-Status: The status of the download (e.g., in progress, completed).
-FileSize: The size of the downloaded file in bytes.
+Purpose: Contains information about TV series.
+Relationship: Linked to tblGenres for genre classification.
+Details:
+SeriesID: Unique identifier for each series.
+Title, StartYear, EndYear, Country: Basic information about the series.
+tblEpisodes
 
-## tblSeries
-This table contains information about TV series available on the platform.
+Purpose: Details individual episodes within a series.
+Relationship: Linked to tblSeries, indicating which series each episode belongs to.
+Details:
+EpisodeID: Unique identifier for each episode.
+SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate: Specific details about each episode.
+tblVideoFiles
 
-SeriesID: A unique identifier for each series.
-GenreID: The genre the series belongs to.
-Title: The title of the series.
-Season: The season number of the series.
-EpisodeCount: The number of episodes in the series.
-StartYear/EndYear: The year the series started and ended (if it has concluded).
-Country: The country of origin of the series.
-
-## tblGenres
-This table defines the different genres that can be associated with movies and series.
-
-GenreID: A unique identifier for each genre.
-Name: The name of the genre (e.g., action, drama, comedy).
-Description: A more detailed description of what the genre entails.
-
-## tblMovies
-This table stores details about the individual movies available for streaming and downloading.
-
-MovieID: A unique identifier for each movie.
-GenreID: The genre the movie belongs to.
-Title: The title of the movie.
-Description: A brief synopsis of the movie.
-Director: The director of the movie.
-ReleaseDate: The release date of the movie.
-Duration: The runtime of the movie, typically in minutes.
-This overview should provide a clear understanding of the purpose of each table and how they relate to one another within the ShowStream platform. If further details or features need to be explained, such as specific administrative functionalities or user actions, those can be added to the descriptions accordingly.
-
-
-## Here's an explanation of each table in your ERD that you can share with your colleagues:
-
-# tblUserProfiles
-This table holds additional personal information about users. Each record links to a tblUsers record and includes the user's first name, last name, and date of birth.
-
-ProfileID: A unique identifier for each user profile.
-UserID: The ID of the user this profile belongs to.
-FirstName: The user's first name.
-LastName: The user's last name.
-DateOfBirth: The user's date of birth.
-# tblUsers
-This table stores the essential information of all users, including their credentials and roles within the platform.
-
-UserID: A unique identifier for each user.
-Username: The chosen username for the user, which must be unique.
-Email: The user's email address, which must be unique.
-Password: The user's password, stored in a hashed format for security.
-Role: The user's role, which could be a regular user or an admin, controlling access to different parts of the system.
-# tblTransactions
-This table records transactions made by users, which could involve purchasing subscriptions or content.
-
-TransactionID: A unique identifier for each transaction.
-UserID: The ID of the user who made the transaction.
-Amount: The financial amount of the transaction.
-TransactionDate: The date and time when the transaction occurred.
-PaymentMethod: The method used for the transaction (e.g., credit card, PayPal).
-Status: The current status of the transaction (e.g., completed, pending).
-# tblDownloads
-This table tracks the downloads initiated by users, detailing what content was downloaded, when, and the size of the files.
-
-DownloadID: A unique identifier for each download event.
-UserID: The ID of the user who initiated the download.
-MovieID/SeriesID: The ID of the movie or series that was downloaded.
-DownloadDate: The date and time the download was initiated.
-ContentType: The type of content downloaded, either a movie or series.
-Status: The status of the download (e.g., in progress, completed).
-FileSize: The size of the downloaded file in bytes.
-# tblSeries
-This table contains information about TV series available on the platform.
-
-SeriesID: A unique identifier for each series.
-GenreID: The genre the series belongs to.
-Title: The title of the series.
-Season: The season number of the series.
-EpisodeCount: The number of episodes in the series.
-StartYear/EndYear: The year the series started and ended (if it has concluded).
-Country: The country of origin of the series.
-# tblGenres
-This table defines the different genres that can be associated with movies and series.
-
-GenreID: A unique identifier for each genre.
-Name: The name of the genre (e.g., action, drama, comedy).
-Description: A more detailed description of what the genre entails.
-# tblMovies
-This table stores details about the individual movies available for streaming and downloading.
-
-MovieID: A unique identifier for each movie.
-GenreID: The genre the movie belongs to.
-Title: The title of the movie.
-Description: A brief synopsis of the movie.
-Director: The director of the movie.
-ReleaseDate: The release date of the movie.
-Duration: The runtime of the movie, typically in minutes.
-This overview should provide a clear understanding of the purpose of each table and how they relate to one another within the ShowStream platform. If further details or features need to be explained, such as specific administrative functionalities or user actions, those can be added to the descriptions accordingly.
-
-## a summary of its correctness:
-
-# tblUsers:
- You’ve appropriately differentiated users by role, which allows for the implementation of permission levels within your application logic. The UserID is correctly set as an auto-incremented primary key, and the Username and Email fields are correctly set to be unique.
-# tblUserProfiles:
- The one-to-one relationship with tblUsers is correct, with UserID as a foreign key.
-# tblMovies:
- The MovieID is the primary key, and GenreID is a foreign key that references tblGenres, which is standard practice.
-# tblSeries:
- The setup is analogous to tblMovies, with its own primary key and a foreign key to tblGenres.
-# tblGenres:
- It’s standalone and serves as a reference for genres that are used by tblMovies and tblSeries.
-# tblDownloads:
- The relationships with tblUsers, tblMovies, and tblSeries are correct, showing that a user can download many movies or series, and a movie or series can be downloaded by many users.
-# tblTransactions:
- The relationship with tblUsers is accurately depicted to show that a user can have many transactions.
-# Verb Labels:
- The verb labels such as "initiates", "is downloaded", and "conducts" are appropriate and provide a clear understanding of the nature of the relationships.
+Purpose: Stores video files associated with movies, series, or specific episodes.
+Relationship: Can be linked to tblMovies, tblSeries, or tblEpisodes, depending on the video file's content type.
+Details:
+VideoFileID: Unique identifier for each video file.
+VideoQuality, FilePath, FileSize: Quality, storage path, and size of the video file.
