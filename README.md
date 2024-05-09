@@ -1062,6 +1062,10 @@ tblTransactions: Tracks financial transactions such as purchases or subscription
 tblVideoFiles: Manages the actual video files associated with movies, series, or specific episodes, including their quality, file path, and size.
 New Responsibilities: Implement and manage the new tblVideoFiles table, ensuring that video files are properly linked to their corresponding movies, series, or episodes and handle the complexities of multiple formats and qualities for downloads.
 Additional Notes
-Integration Tasks: Ensure integration between components, particularly where tables overlap in responsibilities. For instance, content added or modified in the Content Management System must be correctly referenced in the Download and Transaction Management system.
+
+
+## Integration Tasks:
+
+Ensure integration between components, particularly where tables overlap in responsibilities. For instance, content added or modified in the Content Management System must be correctly referenced in the Download and Transaction Management system.
 Security and Data Integrity: Each developer must ensure that data integrity is maintained in their components, especially where foreign keys and relationships are involved.
 Collaborative Testing: Coordinate testing across components to ensure that the system functions cohesively as a whole. This includes testing end-to-end workflows from user registration (handled by Student A) through content browsing and management (handled by Student B) to content downloading and transaction processing (handled by Student C).
