@@ -1034,8 +1034,10 @@ Table Design:
 tblUsers: Stores user credentials and roles.
 tblUserProfiles: Holds detailed user information like names and birthdates.
 New Responsibilities: Ensure that the unique constraints on Username and Email are enforced and that the security measures for storing passwords are up to date.
-Allocated Component: Content Management System
+Allocated Component: 
 
+
+## Content Management System
 
 # Developer: Md Abdus Salam Rafee (Student B)
 Overview:
@@ -1046,7 +1048,10 @@ tblSeries: Stores series information and genre classification.
 tblGenres: A reference table for movie and series genres.
 tblEpisodes: Manages detailed episode information within series, linking episodes to their respective series.
 New Responsibilities: Implement functionality for managing episodes within series and ensure that the relationships between movies, series, and genres are maintained properly.
-Allocated Component: Download and Transaction Management
+Allocated Component: 
+
+
+## Download and Transaction Management
 
 # Developer: Mo Madadi (Student C)
 Overview:
