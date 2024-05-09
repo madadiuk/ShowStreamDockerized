@@ -63,6 +63,8 @@ CREATE TABLE [dbo].[tblUsers] (
     UNIQUE NONCLUSTERED ([Email] ASC)  -- Ensures that the email address is unique across all users
 );
 
+
+
 ## tblUserProfiles - Depends on tblUsers.
 
 #
@@ -76,6 +78,9 @@ CREATE TABLE [dbo].[tblUserProfiles] (
     PRIMARY KEY CLUSTERED ([ProfileID] ASC),
     FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID])
 );
+
+
+
 ## tblGenres - Independent of other tables, can be created early.
 
 #
@@ -86,6 +91,8 @@ CREATE TABLE [dbo].[tblGenres] (
     [Description] VARCHAR (MAX) NULL,
     PRIMARY KEY CLUSTERED ([GenreID] ASC)
 );
+
+
 
 ## tblMovies - Depends on tblGenres.
 
@@ -104,6 +111,8 @@ CREATE TABLE [dbo].[tblMovies] (
     FOREIGN KEY ([GenreID]) REFERENCES [dbo].[tblGenres] ([GenreID]),
     FOREIGN KEY ([ParentMovieID]) REFERENCES [dbo].[tblMovies] ([MovieID])
 );
+
+
 ## tblSeries - Depends on tblGenres.
 
 #
@@ -118,6 +127,8 @@ CREATE TABLE [dbo].[tblSeries] (
     PRIMARY KEY CLUSTERED ([SeriesID] ASC),
     FOREIGN KEY ([GenreID]) REFERENCES [dbo].[tblGenres] ([GenreID])
 );
+
+
 ## tblEpisodes - Depends on tblSeries.
 
 #
@@ -133,6 +144,8 @@ CREATE TABLE [dbo].[tblEpisodes] (
     PRIMARY KEY CLUSTERED ([EpisodeID] ASC),
     FOREIGN KEY ([SeriesID]) REFERENCES [dbo].[tblSeries] ([SeriesID])
 );
+
+
 ## tblVideoFiles - Depends on tblMovies, tblSeries, and tblEpisodes.
 
 #
@@ -150,6 +163,7 @@ CREATE TABLE [dbo].[tblVideoFiles] (
     FOREIGN KEY ([SeriesID]) REFERENCES [dbo].[tblSeries] ([SeriesID]),
     FOREIGN KEY ([EpisodeID]) REFERENCES [dbo].[tblEpisodes] ([EpisodeID])
 );
+
 ## tblTransactions - Depends on tblUsers.
 
 #
@@ -165,6 +179,7 @@ CREATE TABLE [dbo].[tblTransactions] (
     PRIMARY KEY CLUSTERED ([TransactionID] ASC),
     FOREIGN KEY ([UserID]) REFERENCES [dbo].[tblUsers] ([UserID])
 );
+
 ## tblDownloads - Depends on tblUsers, tblMovies, and tblSeries.
 
 #
@@ -184,6 +199,7 @@ CREATE TABLE [dbo].[tblDownloads] (
     FOREIGN KEY ([MovieID]) REFERENCES [dbo].[tblMovies] ([MovieID]),
     FOREIGN KEY ([SeriesID]) REFERENCES [dbo].[tblSeries] ([SeriesID])
 );
+
 
 
 ## stored procedures
