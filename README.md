@@ -953,7 +953,7 @@ END
 
 
 # Database ERD Diagram:
-![tblUsers (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/510e2f4d-e447-47cb-8f48-b0750f5381be)
+![ShowStream ERD diagram (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/65ffd793-bef9-43b2-aad5-fcb1c8b4ecda)
 
 
 Updated ERD Description
