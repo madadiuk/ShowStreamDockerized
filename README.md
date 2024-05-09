@@ -63,8 +63,7 @@ CREATE TABLE [dbo].[tblUsers] (
     UNIQUE NONCLUSTERED ([Email] ASC)  -- Ensures that the email address is unique across all users
 );
 
-##
-tblUserProfiles - Depends on tblUsers.
+## tblUserProfiles - Depends on tblUsers.
 
 #
 
