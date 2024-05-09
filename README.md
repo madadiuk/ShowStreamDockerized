@@ -940,11 +940,9 @@ BEGIN
     FROM tblUsers u
     JOIN tblUserProfiles up ON u.UserID = up.UserID
     WHERE u.UserID = @UserID;
-
     SELECT d.DownloadID, d.DownloadDate, d.ContentType, d.DownloadQuality, d.Status, d.FileSize
     FROM tblDownloads d
     WHERE d.UserID = @UserID;
-
     SELECT t.TransactionID, t.Amount, t.TransactionDate, t.PaymentMethod, t.Status
     FROM tblTransactions t
     WHERE t.UserID = @UserID;
