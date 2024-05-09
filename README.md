@@ -204,373 +204,126 @@ CREATE TABLE [dbo].[tblDownloads] (
 
 ## stored procedures
 
-# spAddDownload
-CREATE PROCEDURE spAddDownload
-    @UserID INT,
-    @MovieID INT,
-    @SeriesID INT,
-    @DownloadDate DATE,
-    @ContentType VARCHAR(50),
-    @Status VARCHAR(50),
-    @FileSize BIGINT
-AS
-BEGIN
-    INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, Status, FileSize)
-    VALUES (@UserID, @MovieID, @SeriesID, @DownloadDate, @ContentType, @Status, @FileSize)
-END
+## tblUsers
 
-# spAddGenre
-CREATE PROCEDURE spAddGenre
-    @Name VARCHAR(255),
-    @Description VARCHAR(MAX)
-AS
-BEGIN
-    INSERT INTO tblGenres (Name, Description)
-    VALUES (@Name, @Description)
-END
+# Add User
 
-# spAddMovie
-CREATE PROCEDURE spAddMovie
-    @Title VARCHAR(255),
-    @Description VARCHAR(MAX),
-    @GenreID INT,
-    @Director VARCHAR(255),
-    @ReleaseDate DATE,
-    @Duration INT
-AS
-BEGIN
-    INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration)
-    VALUES (@Title, @Description, @GenreID, @Director, @ReleaseDate, @Duration)
-END
 
-# spAddSeries
-CREATE PROCEDURE spAddSeries
-    @GenreID INT,
-    @Title VARCHAR(255),
-    @Season INT,
-    @EpisodeCount INT,
-    @StartYear DATE,
-    @EndYear DATE,
-    @Country VARCHAR(255)
+CREATE PROCEDURE spAddUser 
+@Username VARCHAR(255), 
+@Email VARCHAR(255), 
+@Password VARCHAR(255), 
+@Role VARCHAR(50)
 AS
 BEGIN
-    INSERT INTO tblSeries (GenreID, Title, Season, EpisodeCount, StartYear, EndYear, Country)
-    VALUES (@GenreID, @Title, @Season, @EpisodeCount, @StartYear, @EndYear, @Country)
-END
-
-# spAddTransaction
-CREATE PROCEDURE spAddTransaction
-    @UserID INT,
-    @Amount DECIMAL(19,4),
-    @TransactionDate DATE,
-    @PaymentMethod VARCHAR(50),
-    @Status VARCHAR(50)
-AS
-BEGIN
-    INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status)
-    VALUES (@UserID, @Amount, @TransactionDate, @PaymentMethod, @Status)
-END
-
-# spAddUser
-CREATE PROCEDURE spAddUser
-    @Username VARCHAR(255),
-    @Email VARCHAR(255),
-    @Password VARCHAR(255),
-    @Role VARCHAR(50)
-AS
-BEGIN
-    INSERT INTO tblUsers (Username, Email, Password, Role)
+    INSERT INTO tblUsers (Username, Email, Password, Role) 
     VALUES (@Username, @Email, @Password, @Role)
 END
 
-# spAddUserProfile
-CREATE PROCEDURE spAddUserProfile
-    @UserID INT,
-    @FirstName VARCHAR(255),
-    @LastName VARCHAR(255),
-    @DateOfBirth DATE
+## Delete User
+
+
+CREATE PROCEDURE spDeleteUser 
+@UserID INT
 AS
 BEGIN
-    INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth)
-    VALUES (@UserID, @FirstName, @LastName, @DateOfBirth)
+    DELETE FROM tblUsers WHERE UserID = @UserID
 END
-# spDeleteDownload
-CREATE PROCEDURE spDeleteDownload
-    @DownloadID INT
+
+## Update User
+
+
+CREATE PROCEDURE spUpdateUser 
+@UserID INT, @Username VARCHAR(255), @Email VARCHAR(255), @Password VARCHAR(255), @Role VARCHAR(50)
 AS
 BEGIN
-    DELETE FROM tblDownloads
-    WHERE DownloadID = @DownloadID
-END
-# spDeleteGenre
-CREATE PROCEDURE spDeleteGenre
-    @GenreID INT
-AS
-BEGIN
-    DELETE FROM tblGenres
-    WHERE GenreID = @GenreID
-END
-# spDeleteMovie
-CREATE PROCEDURE spDeleteMovie
-    @MovieID INT
-AS
-BEGIN
-    DELETE FROM tblMovies
-    WHERE MovieID = @MovieID
-END
-# spDeleteSeries
-CREATE PROCEDURE spDeleteSeries
-    @SeriesID INT
-AS
-BEGIN
-    DELETE FROM tblSeries
-    WHERE SeriesID = @SeriesID
-END
-# spDeleteTransaction
-CREATE PROCEDURE spDeleteTransaction
-    @TransactionID INT
-AS
-BEGIN
-    DELETE FROM tblTransactions
-    WHERE TransactionID = @TransactionID
-END
-# spDeleteUser
-CREATE PROCEDURE spDeleteUser
-    @UserID INT
-AS
-BEGIN
-    DELETE FROM tblUsers
+    UPDATE tblUsers 
+    SET Username = @Username, Email = @Email, Password = @Password, Role = @Role 
     WHERE UserID = @UserID
 END
-#  spDeleteUserProfile
-CREATE PROCEDURE spDeleteUserProfile
-    @ProfileID INT
-AS
-BEGIN
-    DELETE FROM tblUserProfiles
-    WHERE ProfileID = @ProfileID
-END
-#  spGetAllDownloads
-CREATE PROCEDURE spGetAllDownloads
-AS
-BEGIN
-    SELECT DownloadID, UserID, MovieID, SeriesID, DownloadDate, ContentType, Status, FileSize
-    FROM tblDownloads
-END
-# spGetAllGenres
-CREATE PROCEDURE spGetAllGenres
-AS
-BEGIN
-    SELECT GenreID, Name, Description
-    FROM tblGenres
-END
-# spGetAllMovies
-CREATE PROCEDURE spGetAllMovies
-AS
-BEGIN
-    SELECT MovieID, Title, Description, GenreID, Director, ReleaseDate, Duration
-    FROM tblMovies
-END
-# spGetAllSeries
-CREATE PROCEDURE spGetAllSeries
-AS
-BEGIN
-    SELECT SeriesID, GenreID, Title, Season, EpisodeCount, StartYear, EndYear, Country
-    FROM tblSeries
-END
-# spGetAllTransactions
-CREATE PROCEDURE spGetAllTransactions
-AS
-BEGIN
-    SELECT TransactionID, UserID, Amount, TransactionDate, PaymentMethod, Status
-    FROM tblTransactions
-END
-# spGetAllUserProfiles
-CREATE PROCEDURE spGetAllUserProfiles
-AS
-BEGIN
-    SELECT ProfileID, UserID, FirstName, LastName, DateOfBirth
-    FROM tblUserProfiles
-END
-# spGetAllUsers
+
+## Get All Users
+
+
 CREATE PROCEDURE spGetAllUsers
 AS
 BEGIN
-    SELECT UserID, Username, Email, Role
-    FROM tblUsers
+    SELECT UserID, Username, Email, Role FROM tblUsers
 END
-# spGetDownload
-CREATE PROCEDURE spGetDownload
-    @DownloadID INT
+
+## tblGenres
+
+# Add Genre
+
+
+CREATE PROCEDURE spAddGenre 
+@Name VARCHAR(255), @Description VARCHAR(MAX)
 AS
 BEGIN
-    SELECT DownloadID, UserID, MovieID, SeriesID, DownloadDate, ContentType, Status, FileSize
-    FROM tblDownloads
-    WHERE DownloadID = @DownloadID
+    INSERT INTO tblGenres (Name, Description) VALUES (@Name, @Description)
 END
-# spGetGenre
-CREATE PROCEDURE spGetGenre
-    @GenreID INT
+
+## Update Genre
+
+
+CREATE PROCEDURE spUpdateGenre 
+@GenreID INT, @Name VARCHAR(255), @Description VARCHAR(MAX)
 AS
 BEGIN
-    SELECT GenreID, Name, Description
-    FROM tblGenres
+    UPDATE tblGenres 
+    SET Name = @Name, Description = @Description 
     WHERE GenreID = @GenreID
 END
 
-#spGetMovie
+## Delete Genre
 
-CREATE PROCEDURE spGetMovie
-    @MovieID INT
+
+CREATE PROCEDURE spDeleteGenre 
+@GenreID INT
 AS
 BEGIN
-    SELECT MovieID, Title, Description, GenreID, Director, ReleaseDate, Duration
-    FROM tblMovies
-    WHERE MovieID = @MovieID
-END
-# spGetSeries
-CREATE PROCEDURE spGetSeries
-    @SeriesID INT
-AS
-BEGIN
-    SELECT SeriesID, GenreID, Title, Season, EpisodeCount, StartYear, EndYear, Country
-    FROM tblSeries
-    WHERE SeriesID = @SeriesID
+    DELETE FROM tblGenres WHERE GenreID = @GenreID
 END
 
-# spGetTransaction
-CREATE PROCEDURE spGetTransaction
-    @TransactionID INT
+## tblMovies
+
+# Add Movie
+
+
+CREATE PROCEDURE spAddMovie 
+@Title VARCHAR(255), @Description VARCHAR(MAX), @GenreID INT, @Director VARCHAR(255), @ReleaseDate DATE, @Duration INT
 AS
 BEGIN
-    SELECT TransactionID, UserID, Amount, TransactionDate, PaymentMethod, Status
-    FROM tblTransactions
-    WHERE TransactionID = @TransactionID
-END
-# spGetUser
-CREATE PROCEDURE spGetUser
-    @UserID INT
-AS
-BEGIN
-    SELECT UserID, Username, Email, Role
-    FROM tblUsers
-    WHERE UserID = @UserID
+    INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) 
+    VALUES (@Title, @Description, @GenreID, @Director, @ReleaseDate, @Duration)
 END
 
-# spGetUserProfile
-CREATE PROCEDURE spGetUserProfile
-    @ProfileID INT
-AS
-BEGIN
-    SELECT ProfileID, UserID, FirstName, LastName, DateOfBirth
-    FROM tblUserProfiles
-    WHERE ProfileID = @ProfileID
-END
-# spUpdateDownload
-CREATE PROCEDURE spUpdateDownload
-    @DownloadID INT,
-    @UserID INT,
-    @MovieID INT,
-    @SeriesID INT,
-    @DownloadDate DATE,
-    @ContentType VARCHAR(50),
-    @Status VARCHAR(50),
-    @FileSize BIGINT
-AS
-BEGIN
-    UPDATE tblDownloads
-    SET UserID = @UserID, MovieID = @MovieID, SeriesID = @SeriesID, 
-        DownloadDate = @DownloadDate, ContentType = @ContentType, 
-        Status = @Status, FileSize = @FileSize
-    WHERE DownloadID = @DownloadID
-END
+## Update Movie
 
-# spUpdateGenre
-CREATE PROCEDURE spUpdateGenre
-    @GenreID INT,
-    @Name VARCHAR(255),
-    @Description VARCHAR(MAX)
+
+CREATE PROCEDURE spUpdateMovie 
+@MovieID INT, @Title VARCHAR(255), @Description VARCHAR(MAX), @GenreID INT, @Director VARCHAR(255), @ReleaseDate DATE, @Duration INT
 AS
 BEGIN
-    UPDATE tblGenres
-    SET Name = @Name, Description = @Description
-    WHERE GenreID = @GenreID
-END
-#  spUpdateMovie
-CREATE PROCEDURE spUpdateMovie
-    @MovieID INT,
-    @Title VARCHAR(255),
-    @Description VARCHAR(MAX),
-    @GenreID INT,
-    @Director VARCHAR(255),
-    @ReleaseDate DATE,
-    @Duration INT
-AS
-BEGIN
-    UPDATE tblMovies
-    SET Title = @Title, Description = @Description, GenreID = @GenreID, 
-        Director = @Director, ReleaseDate = @ReleaseDate, Duration = @Duration
+    UPDATE tblMovies 
+    SET Title = @Title, Description = @Description, GenreID = @GenreID, Director = @Director, ReleaseDate = @ReleaseDate, Duration = @Duration 
     WHERE MovieID = @MovieID
 END
 
-# spUpdateSeries
-CREATE PROCEDURE spUpdateSeries
-    @SeriesID INT,
-    @GenreID INT,
-    @Title VARCHAR(255),
-    @Season INT,
-    @EpisodeCount INT,
-    @StartYear DATE,
-    @EndYear DATE,
-    @Country VARCHAR(255)
+## Delete Movie
+
+
+CREATE PROCEDURE spDeleteMovie 
+@MovieID INT
 AS
 BEGIN
-    UPDATE tblSeries
-    SET GenreID = @GenreID, Title = @Title, Season = @Season, EpisodeCount = @EpisodeCount, 
-        StartYear = @StartYear, EndYear = @EndYear, Country = @Country
-    WHERE SeriesID = @SeriesID
-END
-# spUpdateTransaction
-CREATE PROCEDURE spUpdateTransaction
-    @TransactionID INT,
-    @UserID INT,
-    @Amount DECIMAL(19,4),
-    @TransactionDate DATE,
-    @PaymentMethod VARCHAR(50),
-    @Status VARCHAR(50)
-AS
-BEGIN
-    UPDATE tblTransactions
-    SET UserID = @UserID, Amount = @Amount, TransactionDate = @TransactionDate, 
-        PaymentMethod = @PaymentMethod, Status = @Status
-    WHERE TransactionID = @TransactionID
+    DELETE FROM tblMovies WHERE MovieID = @MovieID
 END
 
-# spUpdateUser
-CREATE PROCEDURE spUpdateUser
-    @UserID INT,
-    @Username VARCHAR(255),
-    @Email VARCHAR(255),
-    @Password VARCHAR(255),
-    @Role VARCHAR(50)
-AS
-BEGIN
-    UPDATE tblUsers
-    SET Username = @Username, Email = @Email, Password = @Password, Role = @Role
-    WHERE UserID = @UserID
-END
-# spUpdateUserProfile
-CREATE PROCEDURE spUpdateUserProfile
-    @ProfileID INT,
-    @FirstName VARCHAR(255),
-    @LastName VARCHAR(255),
-    @DateOfBirth DATE
-AS
-BEGIN
-    UPDATE tblUserProfiles
-    SET FirstName = @FirstName, LastName = @LastName, DateOfBirth = @DateOfBirth
-    WHERE ProfileID = @ProfileID
-END
+##
+
+
+
 
 
 # Database ERD Diagram:
