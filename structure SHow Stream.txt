@@ -86,6 +86,8 @@ Solution show stream
 		References
 		clsDataConnection.cs
 			clsDataConnection
+		TransactionManager.cs
+			TransactionManager
 	TestingDownloads
 		Properties
 			AssemblyInfo.cs

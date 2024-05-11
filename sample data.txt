@@ -1,0 +1,165 @@
+
+
+
+## tblGenres
+INSERT INTO tblGenres (Name, Description) VALUES ('Action', 'Fast paced, exciting content.');
+INSERT INTO tblGenres (Name, Description) VALUES ('Drama', 'In-depth character development and emotional themes.');
+INSERT INTO tblGenres (Name, Description) VALUES ('Comedy', 'Light-hearted fun and laughter.');
+INSERT INTO tblGenres (Name, Description) VALUES ('Horror', 'Spooky, frightening themes.');
+INSERT INTO tblGenres (Name, Description) VALUES ('Sci-Fi', 'Science fiction, futuristic and speculative themes.');
+
+
+## tblUsers
+
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('jdoe', 'jdoe@example.com', 'password123', 'User');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('asmith', 'asmith@example.com', 'password123', 'Admin');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('bjones', 'bjones@example.com', 'password123', 'User');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('cwhite', 'cwhite@example.com', 'password123', 'User');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('dgreen', 'dgreen@example.com', 'password123', 'User');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('ewilson', 'ewilson@example.com', 'password123', 'Admin');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('fthompson', 'fthompson@example.com', 'password123', 'User');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('gclark', 'gclark@example.com', 'password123', 'User');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('hlewis', 'hlewis@example.com', 'password123', 'User');
+INSERT INTO tblUsers (Username, Email, Password, Role) VALUES ('irobinson', 'irobinson@example.com', 'password123', 'User');
+
+
+## Sample Data for tblUserProfiles
+
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (1, 'John', 'Doe', '1990-02-15');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (2, 'Alice', 'Johnson', '1985-07-24');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (3, 'Robert', 'Smith', '1978-08-12');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (4, 'Maria', 'Garcia', '1992-01-30');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (5, 'James', 'Wilson', '1989-03-22');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (6, 'Patricia', 'Brown', '1975-04-18');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (7, 'David', 'Martinez', '1994-10-14');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (8, 'Jennifer', 'Lopez', '1980-12-09');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (9, 'Michael', 'Davis', '1970-05-29');
+INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) VALUES (10, 'Lisa', 'Miller', '1983-11-25');
+
+## Sample Data for tblTransactions
+
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (1, 50.00, '2022-09-01', 'Credit Card', 'Completed');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (2, 75.25, '2022-09-02', 'PayPal', 'Completed');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (3, 20.00, '2022-09-02', 'Debit Card', 'Pending');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (4, 100.00, '2022-09-03', 'Credit Card', 'Failed');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (5, 200.75, '2022-09-05', 'Credit Card', 'Completed');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (6, 15.50, '2022-09-05', 'PayPal', 'Completed');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (7, 35.00, '2022-09-06', 'Debit Card', 'Completed');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (8, 45.99, '2022-09-07', 'Credit Card', 'Pending');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (9, 95.00, '2022-09-08', 'PayPal', 'Completed');
+INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (10, 60.00, '2022-09-09', 'Credit Card', 'Completed');
+
+
+## Sample Data for tblMovies
+
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('Inception', 'A thief who steals corporate secrets through the use of dream-sharing technology.', 1, 'Christopher Nolan', '2010-07-16', 148);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('The Matrix', 'A computer hacker learns from mysterious rebels about the true nature of his reality.', 2, 'The Wachowskis', '1999-03-31', 136);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('Interstellar', 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity''s survival.', 1, 'Christopher Nolan', '2014-11-07', 169);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('Avatar', 'A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn.', 3, 'James Cameron', '2009-12-18', 162);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('Gladiator', 'A former Roman General sets out to exact vengeance against the corrupt emperor.', 4, 'Ridley Scott', '2000-05-05', 155);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('Titanic', 'A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard.', 5, 'James Cameron', '1997-12-19', 195);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('Jurassic Park', 'During a preview tour, a theme park suffers a major power breakdown.', 2, 'Steven Spielberg', '1993-06-11', 127);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('Forrest Gump', 'The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other historical events unfold from the perspective of an Alabama man.', 3, 'Robert Zemeckis', '1994-07-06', 142);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('The Godfather', 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.', 5, 'Francis Ford Coppola', '1972-03-24', 175);
+INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) VALUES ('Pulp Fiction', 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.', 4, 'Quentin Tarantino', '1994-10-14', 154);
+
+
+## Sample Data for tblSeries
+
+
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('Breaking Bad', 2, '2008-01-20', '2013-09-29', 'USA');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('Game of Thrones', 1, '2011-04-17', '2019-05-19', 'USA');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('Stranger Things', 3, '2016-07-15', NULL, 'USA');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('The Mandalorian', 1, '2019-11-12', NULL, 'USA');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('The Witcher', 1, '2019-12-20', NULL, 'USA');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('The Crown', 5, '2016-11-04', NULL, 'UK');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('Black Mirror', 3, '2011-12-04', NULL, 'UK');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('Sherlock', 2, '2010-07-25', '2017-01-15', 'UK');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('Vikings', 4, '2013-03-03', '2020-12-30', 'Canada');
+INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) VALUES ('The Office US', 5, '2005-03-24', '2013-05-16', 'USA');
+
+
+## Sample Data for tblEpisodes
+
+-- Episodes for "Breaking Bad"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (1, 1, 1, 'Pilot', 'A high school chemistry teacher turns to cooking and selling methamphetamine.', '2008-01-20');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (1, 1, 2, 'Cats in the Bag...', 'Walt and Jesse attempt to dispose of the bodies of two rival drug dealers.', '2008-01-27');
+
+
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (2, 1, 1, 'Winter Is Coming', 'The Stark family is introduced, and the King visits Winterfell.', '2011-04-17');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (2, 1, 2, 'The Kingsroad', 'The Starks journey to Kings Landing, and Daenerys begins her path to power.', '2011-04-24');
+
+-- Episodes for "Stranger Things"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (3, 1, 1, 'The Vanishing of Will Byers', 'A young boy disappears, and his friends and a mysterious girl search for him.', '2016-07-15');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (3, 1, 2, 'The Weirdo on Maple Street', 'The group discovers more about the girl with supernatural powers.', '2016-07-15');
+
+-- Episodes for "The Mandalorian"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (4, 1, 1, 'Chapter 1: The Mandalorian', 'A bounty hunter is commissioned to retrieve a valuable asset.', '2019-11-12');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (4, 1, 2, 'Chapter 2: The Child', 'The Mandalorian fights to protect a magical infant.', '2019-11-15');
+
+-- Episodes for "The Witcher"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (5, 1, 1, 'The End’s Beginning', 'Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world.', '2019-12-20');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (5, 1, 2, 'Four Marks', 'Yennefer and Geralts paths continue to draw closer.', '2019-12-20');
+
+
+-- Episodes for "Black Mirror"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (6, 1, 1, 'The National Anthem', 'The UK Prime Minister faces a shocking dilemma when Princess Susannah is kidnapped.', '2011-12-04');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (6, 1, 2, 'Fifteen Million Merits', 'In a world where people earn credits on exercise bikes, one man has a plan to break out.', '2011-12-11');
+
+-- Episodes for "Sherlock"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (7, 1, 1, 'A Study in Pink', 'Sherlock Holmes is introduced to John Watson and they tackle their first case together.', '2010-07-25');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (7, 1, 2, 'The Blind Banker', 'Sherlock and Watson investigate a series of mysterious and deadly puzzles linked to a Chinese criminal syndicate.', '2010-08-01');
+
+-- Episodes for "Friends"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (8, 1, 1, 'The One Where Monica Gets a Roommate', 'Monica and the gang introduce Rachel to the "real world" after she leaves her fiancé at the altar.', '1994-09-22');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (8, 1, 2, 'The One with the Sonogram at the End', 'Ross finds out his ex-wife is pregnant, and he has to attend a sonogram along with her.', '1994-09-29');
+
+-- Episodes for "The Crown"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (9, 1, 1, 'Wolferton Splash', 'Young Princess Elizabeth marries Prince Philip. As King George VI’s health worsens, Winston Churchill becomes Prime Minister for the second time.', '2016-11-04');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (9, 1, 2, 'Hyde Park Corner', 'With King George too ill to travel, Elizabeth and Philip embark on a four-continent Commonwealth tour. Party leaders attempt to undermine Churchill.', '2016-11-04');
+
+-- Episodes for "BoJack Horseman"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (10, 1, 1, 'BoJack Horseman: The BoJack Horseman Story, Chapter One', 'A washed-up star of a 90s sitcom struggles with his personal and professional life while trying to find happiness.', '2014-08-22');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (10, 1, 2, 'BoJack Hates the Troops', 'BoJack finds himself the subject of national media attention after he calls the troops "jerks".', '2014-08-22');
+
+-- More Episodes for "Black Mirror"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (6, 1, 3, 'The Entire History of You', 'In the near future, everyone has access to a memory implant that records everything humans do, see and hear.', '2011-12-18');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (6, 2, 1, 'Be Right Back', 'A young womans boyfriend dies and she has him resurrected through technology.', '2013-02-11');
+
+-- More Episodes for "Sherlock"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (7, 1, 3, 'The Great Game', 'Sherlock must solve perplexing and dangerous puzzles specifically laid out for him.', '2010-08-08');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (7, 2, 1, 'A Scandal in Belgravia', 'Sherlock becomes embroiled with the powerful and cunning Irene Adler.', '2012-01-01');
+
+-- More Episodes for "Friends"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (8, 1, 3, 'The One with the Thumb', 'Chandler starts smoking again; Phoebe makes a bizarre discovery about her new boyfriend.', '1994-10-06');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (8, 1, 4, 'The One with George Stephanopoulos', 'Ross, upset about it being the anniversary of his first time with Carol, goes to a hockey game with Chandler and Joey.', '1994-10-13');
+
+-- More Episodes for "The Crown"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (9, 1, 3, 'Windsor', 'The Duke of Windsor campaigns to re-enter public life.', '2016-11-04');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (9, 1, 4, 'Act of God', 'A dense smog envelops London and wreaks havoc, leading to political repercussions for Churchill.', '2016-11-04');
+
+-- More Episodes for "BoJack Horseman"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (10, 1, 3, 'Prickly-Muffin', 'BoJack reconnects with a dearly beloved character from his star-making sitcom.', '2014-08-22');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (10, 1, 4, 'Zoës and Zeldas', 'BoJack judges a beauty contest and faces consequences from his former sitcom co-stars.', '2014-08-22');
+
+-- Episodes for "Breaking Bad"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (10, 1, 1, 'Pilot', 'A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine.', '2008-01-20');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (9, 1, 2, 'Cats in the Bag...', 'Following their debacle in the desert, Walter and Jesse need to deal with a dead body and a prisoner.', '2008-01-27');
+
+-- Episodes for "Game of Thrones"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (8, 1, 1, 'Winter Is Coming', 'Noble families in the seven kingdoms of Westeros vie for control of the Iron Throne.', '2011-04-17');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (7, 1, 2, 'The Kingsroad', 'Bran s fate remains in doubt. Having agreed to become the Kings Hand Ned leaves The North with daughters Sansa and Arya.', '2011-04-24');
+
+-- Episodes for "Stranger Things"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (9, 1, 1, 'The Vanishing of Will Byers', 'A young boy vanishes into thin air under mysterious circumstances.', '2016-07-15');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (10, 1, 2, 'The Weirdo on Maple Street', 'Mike hides the mysterious girl in his house. Joyce gets a strange phone call.', '2016-07-15');
+
+-- Episodes for "The Mandalorian"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (10, 1, 1, 'Chapter 1: The Mandalorian', 'A Mandalorian bounty hunter tracks a target for a well-paying client.', '2019-11-12');
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (8, 1, 2, 'Chapter 2: The Child', 'The Mandalorian must fight off raiders while protecting a mysterious baby.', '2019-11-15');
+
+-- Episodes for "The Witcher"
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (7, 1, 1, 'The End s Beginning', 'Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world.', '2019-12-20');
+
+INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) VALUES (6, 1, 2, 'Four Marks', 'Yennefer and her fellow mages prepare to fight back.', '2019-12-20');
+
