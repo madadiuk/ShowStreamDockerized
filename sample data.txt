@@ -249,3 +249,65 @@ INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Sta
 INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) VALUES (7, 160.25, '2023-05-04', 'PayPal', 'Completed');
 
 
+## Sample Data for tblDownloads
+
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES (1, 1, NULL, '2023-05-10', 'Movie', '1080p', 'Completed', 2147483648);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 2, NULL, 2, '2023-05-10', 'Movie', '720p', 'Completed', 1073741824);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES ( 3, 3, NULL, '2023-05-11', 'Movie', '4K', 'Completed', 4294967296);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 4, NULL, 1, '2023-05-11', 'Series', '1080p', 'Completed', 2147483648);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 5, NULL, 2, '2023-05-12', 'Series', '4K', 'Completed', 4294967296);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 6, NULL, 3, '2023-05-12', 'Series', '1080p', 'Failed', 2147483648);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 7, NULL, 4, '2023-05-13', 'Series', '4K', 'Completed', 4294967296);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 8, NULL, 5, '2023-05-13', 'Series', '1080p', 'Completed', 2147483648);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 9, NULL, 6, '2023-05-14', 'Series', '1080p', 'Pending', 2147483648);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 10, NULL, 7, '2023-05-14', 'Series', '720p', 'Completed', 1073741824);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES ( 11, NULL, 8, '2023-05-15', 'Series', '1080p', 'Completed', 2147483648);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 12, NULL, 9, '2023-05-15', 'Series', '720p', 'Pending', 1073741824);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 13, NULL, 10, '2023-05-16', 'Series', '1080p', 'Completed', 2147483648);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES ( 1, 4, NULL, '2023-05-16', 'Movie', '1080p', 'Completed', 5120000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 2, 5, NULL, '2023-05-17', 'Movie', '720p', 'Completed', 3072000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 3, 6, NULL, '2023-05-17', 'Movie', '1080p', 'Failed', 5120000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 4, 7, NULL, '2023-05-18', 'Movie', '720p', 'Completed', 3072000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 5, 8, NULL, '2023-05-18', 'Movie', '1080p', 'Completed', 5120000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 6, 9, NULL, '2023-05-19', 'Movie', '720p', 'Pending', 3072000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES ( 7, 10, NULL, '2023-05-19', 'Movie', '1080p', 'Completed', 5120000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 8, 1, NULL, '2023-05-20', 'Movie', '4K', 'Failed', 4294967296);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 9, 2, NULL, '2023-05-20', 'Movie', '1080p', 'Completed', 2147483648);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 10, 3, NULL, '2023-05-21', 'Movie', '4K', 'Pending', 10240000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 11, 4, NULL, '2023-05-21', 'Movie', '1080p', 'Completed', 5120000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 12, 5, NULL, '2023-05-22', 'Movie', '720p', 'Pending', 3072000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 13, 6, NULL, '2023-05-22', 'Movie', '1080p', 'Completed', 5120000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 1, 7, NULL, '2023-05-23', 'Movie', '720p', 'Completed', 3072000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 2, 8, NULL, '2023-05-23', 'Movie', '1080p', 'Pending', 5120000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  ( 3, 9, NULL, '2023-05-24', 'Movie', '720p', 'Completed', 3072000000);
+INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+VALUES  (4, 10, NULL, '2023-05-24', 'Movie', '1080p', 'Completed', 5120000000);
