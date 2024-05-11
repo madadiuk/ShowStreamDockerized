@@ -171,7 +171,7 @@ CREATE TABLE [dbo].[tblVideoFiles] (
 CREATE TABLE [dbo].[tblTransactions] (
     [TransactionID]        INT             IDENTITY (1, 1) NOT NULL,
     [UserID]               INT             NOT NULL,
-    [Amount]               DECIMAL (19, 4) NOT NULL,
+    [Amount]               DECIMAL (19, 2) NOT NULL,
     [TransactionDate]      DATETIME        NOT NULL,
     [PaymentMethod]        VARCHAR (50)    NOT NULL,
     [PaymentMethodDetails] VARCHAR (255)   NULL,
