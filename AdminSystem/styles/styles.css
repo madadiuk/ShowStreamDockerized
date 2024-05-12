@@ -101,7 +101,7 @@ th {
     border-radius: 5px;
     cursor: pointer;
     display: inline-block; /* Ensures the button doesn't stretch across the container */
-    max-width: 150px !important; /* Ensures this style isn't overridden */
+    max-width: 150px; /* Ensures this style isn't overridden */
 }
 
     .search-button:hover {
