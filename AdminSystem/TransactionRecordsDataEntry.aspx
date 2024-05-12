@@ -11,6 +11,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <!-- Link to the external CSS file -->
+    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,9 +20,12 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
         <div>
-            <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
-            <input type="hidden" id="usernameInput" name="usernameInput" style="width: 100%;" />
-
+            <div class="search-container">
+                <label class="search-label" for="usernameInput">Username: Search for a user</label>
+                <input type="hidden" id="usernameInput" name="usernameInput" class="search-input" />
+                    <!-- Notification area for selected user -->
+                 <div id="userNotification" class="user-notification" style="display:none;"></div>
+            </div>
         
             <asp:Label ID="lblAmount" runat="server" Text="Amount:"></asp:Label>
             <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
@@ -80,8 +85,15 @@
                 placeholder: 'Search for a user',
                 minimumInputLength: 1,
                 allowClear: true
+            }).on("select2:select", function (e) {
+                var data = e.params.data;
+                $('#userNotification').show().text('You have chosen: ' + data.text);
+            }).on("select2:unselect", function (e) {
+                $('#userNotification').hide();
             });
         });
+
+
     </script>
 
 
