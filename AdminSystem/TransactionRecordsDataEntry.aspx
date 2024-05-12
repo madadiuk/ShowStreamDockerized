@@ -19,13 +19,14 @@
         <!-- Add ScriptManager here -->
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-        <div>
-            <div class="search-container">
-                <label class="search-label" for="usernameInput">Username: Search for a user</label>
-                <input type="hidden" id="usernameInput" name="usernameInput" class="search-input" />
-                    <!-- Notification area for selected user -->
-                 <div id="userNotification" class="user-notification" style="display:none;"></div>
-            </div>
+        <div class="search-container">
+            <label class="search-label" for="usernameInput">Username:</label>
+            <button type="button" id="activateSearch" class="search-button">Select User</button>
+            <input type="hidden" id="usernameInput" name="usernameInput" class="search-input" />
+            <div id="userNotification" class="user-notification" style="display:none;"></div>
+        </div>
+
+
         
             <asp:Label ID="lblAmount" runat="server" Text="Amount:"></asp:Label>
             <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
@@ -62,7 +63,7 @@
     </form>
     <script>
         $(document).ready(function () {
-            $('#usernameInput').select2({
+            var userSearch = $('#usernameInput').select2({
                 ajax: {
                     url: 'UserSearch.ashx',
                     dataType: 'json',
@@ -82,16 +83,23 @@
                     },
                     cache: true
                 },
-                placeholder: 'Search for a user',
+                placeholder: 'Type to search and select a user', // Updated placeholder text
                 minimumInputLength: 1,
                 allowClear: true
-            }).on("select2:select", function (e) {
+            });
+
+            $('#activateSearch').on('click', function () {
+                userSearch.select2('open');
+            });
+
+            userSearch.on("select2:select", function (e) {
                 var data = e.params.data;
-                $('#userNotification').show().text('You have chosen: ' + data.text);
+                $('#userNotification').show().text('You have chosen: ' + data.text); // Shows selected user
             }).on("select2:unselect", function (e) {
-                $('#userNotification').hide();
+                $('#userNotification').hide(); // Hides notification when user clears selection
             });
         });
+
 
 
     </script>

@@ -92,3 +92,19 @@ th {
     color: #31708f;
     font-size: 16px;
 }
+.search-button {
+    padding: 8px 15px; /* Reduced padding */
+    background-color: #007BFF;
+    color: white;
+    font-size: 14px; /* Adjusted font size for better fit */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block; /* Ensures the button doesn't stretch across the container */
+    max-width: 150px !important; /* Ensures this style isn't overridden */
+}
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
