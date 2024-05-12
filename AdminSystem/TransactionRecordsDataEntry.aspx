@@ -45,7 +45,7 @@
                 <Columns>
                     <asp:BoundField DataField="TransactionID" HeaderText="Transaction ID" />
                     <asp:BoundField DataField="Username" HeaderText="Username" />
-                    <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:C}" />
+                    <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="£{0:N2}" HtmlEncode="False" />
                     <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date" DataFormatString="{0:d}" />
                     <asp:BoundField DataField="PaymentMethod" HeaderText="Payment Method" />
                     <asp:BoundField DataField="Status" HeaderText="Status" />
