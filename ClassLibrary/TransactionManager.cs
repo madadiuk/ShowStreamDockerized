@@ -20,6 +20,12 @@ public class TransactionManager
         connection.Execute("spAddTransaction");
     }
 
+    public DataTable GetUsers()
+    {
+        connection.Execute("spGetAllUsers"); // Ensure you have a stored procedure named 'spGetUsers' that returns user IDs and names
+        return connection.DataTable;
+    }
+
     public void UpdateTransaction(int transactionId, int userId, decimal amount, DateTime transactionDate, string paymentMethod, string status)
     {
         connection.AddParameter("@TransactionID", transactionId);
