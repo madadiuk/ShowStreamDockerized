@@ -1,5 +1,7 @@
 ﻿using System.Data;
 using System;
+using ClassLibrary;
+using System.Collections.Generic;
 
 public class TransactionManager
 {
@@ -9,6 +11,31 @@ public class TransactionManager
     {
         connection = new clsDataConnection(); // Assuming clsDataConnection handles your DB connections
     }
+    public List<User> SearchUsers(string searchText)
+    {
+        List<User> users = new List<User>();
+        try
+        {
+            connection.AddParameter("@SearchText", searchText);
+            connection.Execute("spSearchUsers");  // This should now successfully call the stored procedure
+
+            foreach (DataRow row in connection.DataTable.Rows)
+            {
+                users.Add(new User()
+                {
+                    UserID = Convert.ToInt32(row["UserID"]),
+                    Username = row["Username"].ToString()
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle or log the exception as appropriate
+            System.Diagnostics.Debug.WriteLine("Error in SearchUsers: " + ex.Message);
+        }
+        return users;
+    }
+
 
     public void AddTransaction(int userId, decimal amount, DateTime transactionDate, string paymentMethod, string status)
     {

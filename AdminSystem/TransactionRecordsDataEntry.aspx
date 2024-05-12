@@ -9,7 +9,8 @@
     <!-- Include jQuery from CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <!-- Other scripts can follow here -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,8 +19,9 @@
 
         <div>
             <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
-            <asp:DropDownList ID="ddlUsername" runat="server" DataTextField="Username" DataValueField="UserID" AutoPostBack="true"></asp:DropDownList>
-            
+            <input type="hidden" id="usernameInput" name="usernameInput" style="width: 100%;" />
+
+        
             <asp:Label ID="lblAmount" runat="server" Text="Amount:"></asp:Label>
             <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="Amount is required." Display="Dynamic" />
@@ -53,5 +55,35 @@
             </asp:GridView>
         </div>
     </form>
+    <script>
+        $(document).ready(function () {
+            $('#usernameInput').select2({
+                ajax: {
+                    url: 'UserSearch.ashx',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            term: params.term // search term from the input
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data.map(user => ({
+                                id: user.id,
+                                text: user.text
+                            }))
+                        };
+                    },
+                    cache: true
+                },
+                placeholder: 'Search for a user',
+                minimumInputLength: 1,
+                allowClear: true
+            });
+        });
+    </script>
+
+
 </body>
 </html>

@@ -19,20 +19,13 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            PopulateUsers();  // Populate the DropDownList for usernames
+            
             PopulatePaymentMethods(); // Populate the DropDownList for payment methods
             PopulateStatuses(); // Populate the DropDownList for transaction statuses
             LoadTransactions(); // Load existing transactions into the grid
         }
     }
 
-    private void PopulateUsers()
-    {
-        // Assuming you have a method in TransactionManager to get users
-        TransactionManager tm = new TransactionManager();
-        ddlUsername.DataSource = tm.GetUsers(); // Should return DataTable or List of users
-        ddlUsername.DataBind();
-    }
 
     private void PopulatePaymentMethods()
     {
@@ -50,17 +43,18 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        int userId = int.Parse(ddlUsername.SelectedValue); // Get selected User ID from DropDownList
+        int userId = Convert.ToInt32(Request.Form["usernameInput"]); // Read the value from hidden input
         decimal amount = decimal.Parse(txtAmount.Text);
         DateTime transactionDate = DateTime.Parse(txtTransactionDate.Text);
-        string paymentMethod = ddlPaymentMethod.SelectedValue; // Get selected payment method from DropDownList
-        string status = ddlStatus.SelectedValue; // Get selected status from DropDownList
+        string paymentMethod = ddlPaymentMethod.SelectedValue;
+        string status = ddlStatus.SelectedValue;
 
         TransactionManager tm = new TransactionManager();
         tm.AddTransaction(userId, amount, transactionDate, paymentMethod, status);
         lblMessage.Text = "Transaction saved successfully!";
         LoadTransactions();
     }
+
 
     private void LoadTransactions()
     {

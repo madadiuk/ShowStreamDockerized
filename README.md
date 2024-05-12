@@ -958,6 +958,18 @@ BEGIN
     JOIN tblUsers u ON t.UserID = u.UserID
 END
 
+## New spSearchUsers added 12/05/2024
+
+CREATE PROCEDURE spSearchUsers
+    @SearchText NVARCHAR(100)
+AS
+BEGIN
+    SELECT UserID, Username
+    FROM tblUsers
+    WHERE Username LIKE '%' + @SearchText + '%'
+END
+
+
 
 # Database ERD Diagram:
 ![ShowStream ERD diagram (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/65ffd793-bef9-43b2-aad5-fcb1c8b4ecda)
