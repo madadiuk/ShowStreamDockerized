@@ -30,22 +30,26 @@
             
             <asp:Label ID="lblPaymentMethod" runat="server" Text="Payment Method:"></asp:Label>
             <asp:DropDownList ID="ddlPaymentMethod" runat="server">
-                <asp:ListItem Text="PayPal" Value="PayPal"></asp:ListItem>
-                <asp:ListItem Text="Debit Card" Value="Debit Card"></asp:ListItem>
-                <asp:ListItem Text="Credit Card" Value="Credit Card"></asp:ListItem>
+
             </asp:DropDownList>
             
             <asp:Label ID="lblStatus" runat="server" Text="Status:"></asp:Label>
             <asp:DropDownList ID="ddlStatus" runat="server">
-                <asp:ListItem Text="Completed" Value="Completed"></asp:ListItem>
-                <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
-                <asp:ListItem Text="Failed" Value="Failed"></asp:ListItem>
+                
             </asp:DropDownList>
             
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
             <asp:Label ID="lblMessage" runat="server"></asp:Label>
             
-            <asp:GridView ID="gvTransactions" runat="server">
+            <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False">
+                <Columns>
+                    <asp:BoundField DataField="TransactionID" HeaderText="Transaction ID" />
+                    <asp:BoundField DataField="Username" HeaderText="Username" />
+                    <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:C}" />
+                    <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date" DataFormatString="{0:d}" />
+                    <asp:BoundField DataField="PaymentMethod" HeaderText="Payment Method" />
+                    <asp:BoundField DataField="Status" HeaderText="Status" />
+                </Columns>
             </asp:GridView>
         </div>
     </form>

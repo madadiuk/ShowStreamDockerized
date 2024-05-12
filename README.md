@@ -948,6 +948,15 @@ BEGIN
     WHERE t.UserID = @UserID;
 END
 
+## New spGetAllTransactionDetails added 12/05/2024
+
+CREATE PROCEDURE spGetAllTransactionDetails
+AS
+BEGIN
+    SELECT t.TransactionID, t.Amount, t.TransactionDate, t.PaymentMethod, t.Status, u.Username
+    FROM tblTransactions t
+    JOIN tblUsers u ON t.UserID = u.UserID
+END
 
 
 # Database ERD Diagram:

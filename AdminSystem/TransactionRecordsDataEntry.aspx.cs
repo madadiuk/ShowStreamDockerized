@@ -65,7 +65,7 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
     private void LoadTransactions()
     {
         TransactionManager tm = new TransactionManager();
-        gvTransactions.DataSource = tm.GetAllTransactions();
+        gvTransactions.DataSource = tm.GetAllTransactionDetails();  // Ensure this method calls the new or updated stored procedure
         gvTransactions.DataBind();
     }
 }

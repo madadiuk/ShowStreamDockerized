@@ -49,6 +49,13 @@ public class TransactionManager
         return connection.DataTable;
     }
 
+    public DataTable GetAllTransactionDetails()
+    {
+        connection.Execute("spGetAllTransactionDetails");  // Ensure this stored procedure returns Username along with other transaction details
+        return connection.DataTable;
+    }
+
+
     // Retrieve transactions within a specific date range
     public DataTable GetTransactionsByDateRange(DateTime startDate, DateTime endDate)
     {
