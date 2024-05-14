@@ -1,5 +1,8 @@
 Solution show stream
 	AdminSystem
+		styles
+			styles.css
+		UserSearch.ashx
 		ContentDashboard.aspx
 			ContentDashboard.aspx.cs
 		DownloadsConfirmDelete.aspx
@@ -88,6 +91,8 @@ Solution show stream
 			clsDataConnection
 		TransactionManager.cs
 			TransactionManager
+		User.cs
+			User
 	TestingDownloads
 		Properties
 			AssemblyInfo.cs

@@ -144,4 +144,10 @@ public class TransactionManager
         results.Tables.Add(connection.DataTable);
         return results;
     }
+       public interface IDataConnection
+    {
+        void AddParameter(string name, object value);
+        DataTable Execute(string storedProcedureName);
+        // Add other necessary methods like ExecuteNonQuery if needed
+    }
 }

@@ -21,7 +21,7 @@
 
         <div class="search-container">
             <label class="search-label" for="usernameInput">Username:</label>
-            <button type="button" id="activateSearch" class="search-button">Select User</button>
+            <button type="button" id="activateSearch" class="search-button">Find the User</button>
             <input type="hidden" id="usernameInput" name="usernameInput" class="search-input" />
             <div id="userNotification" class="user-notification" style="display:none;"></div>
         </div>
