@@ -59,7 +59,7 @@
                     <asp:BoundField DataField="Status" HeaderText="Status" />
                 </Columns>
             </asp:GridView>
-        </div>
+        
     </form>
     <script>
         $(document).ready(function () {

@@ -1,0 +1,674 @@
+
+
+
+CREATE PROCEDURE spAddUser 
+@Username VARCHAR(255), 
+@Email VARCHAR(255), 
+@Password VARCHAR(255), 
+@Role VARCHAR(50)
+AS
+BEGIN
+    INSERT INTO tblUsers (Username, Email, Password, Role) 
+    VALUES (@Username, @Email, @Password, @Role)
+END
+GO
+
+CREATE PROCEDURE spDeleteUser 
+@UserID INT
+AS
+BEGIN
+    DELETE FROM tblUsers WHERE UserID = @UserID
+END
+GO
+
+
+
+CREATE PROCEDURE spUpdateUser 
+@UserID INT, @Username VARCHAR(255), @Email VARCHAR(255), @Password VARCHAR(255), @Role VARCHAR(50)
+AS
+BEGIN
+    UPDATE tblUsers 
+    SET Username = @Username, Email = @Email, Password = @Password, Role = @Role 
+    WHERE UserID = @UserID
+END
+GO
+
+
+CREATE PROCEDURE spGetAllUsers
+AS
+BEGIN
+    SELECT UserID, Username, Email, Role FROM tblUsers
+END
+GO
+
+
+
+CREATE PROCEDURE spAddGenre 
+@Name VARCHAR(255), @Description VARCHAR(MAX)
+AS
+BEGIN
+    INSERT INTO tblGenres (Name, Description) VALUES (@Name, @Description)
+END
+GO
+
+
+CREATE PROCEDURE spUpdateGenre 
+@GenreID INT, @Name VARCHAR(255), @Description VARCHAR(MAX)
+AS
+BEGIN
+    UPDATE tblGenres 
+    SET Name = @Name, Description = @Description 
+    WHERE GenreID = @GenreID
+END
+GO
+
+
+CREATE PROCEDURE spDeleteGenre 
+@GenreID INT
+AS
+BEGIN
+    DELETE FROM tblGenres WHERE GenreID = @GenreID
+END
+GO
+
+
+
+CREATE PROCEDURE spAddMovie 
+@Title VARCHAR(255), @Description VARCHAR(MAX), @GenreID INT, @Director VARCHAR(255), @ReleaseDate DATE, @Duration INT
+AS
+BEGIN
+    INSERT INTO tblMovies (Title, Description, GenreID, Director, ReleaseDate, Duration) 
+    VALUES (@Title, @Description, @GenreID, @Director, @ReleaseDate, @Duration)
+END
+GO
+
+
+CREATE PROCEDURE spUpdateMovie 
+@MovieID INT, @Title VARCHAR(255), @Description VARCHAR(MAX), @GenreID INT, @Director VARCHAR(255), @ReleaseDate DATE, @Duration INT
+AS
+BEGIN
+    UPDATE tblMovies 
+    SET Title = @Title, Description = @Description, GenreID = @GenreID, Director = @Director, ReleaseDate = @ReleaseDate, Duration = @Duration 
+    WHERE MovieID = @MovieID
+END
+GO
+
+
+CREATE PROCEDURE spDeleteMovie 
+@MovieID INT
+AS
+BEGIN
+    DELETE FROM tblMovies WHERE MovieID = @MovieID
+END
+GO
+
+
+
+CREATE PROCEDURE spAddSeries 
+@Title VARCHAR(255), @GenreID INT, @StartYear DATE, @EndYear DATE, @Country VARCHAR(255)
+AS
+BEGIN
+    INSERT INTO tblSeries (Title, GenreID, StartYear, EndYear, Country) 
+    VALUES (@Title, @GenreID, @StartYear, @EndYear, @Country)
+END
+GO
+
+
+CREATE PROCEDURE spUpdateSeries 
+@SeriesID INT, @Title VARCHAR(255), @GenreID INT, @StartYear DATE, @EndYear DATE, @Country VARCHAR(255)
+AS
+BEGIN
+    UPDATE tblSeries 
+    SET Title = @Title, GenreID = @GenreID, StartYear = @StartYear, EndYear = @EndYear, Country = @Country 
+    WHERE SeriesID = @SeriesID
+END
+GO
+
+
+CREATE PROCEDURE spDeleteSeries 
+@SeriesID INT
+AS
+BEGIN
+    DELETE FROM tblSeries WHERE SeriesID = @SeriesID
+END
+GO
+
+
+CREATE PROCEDURE spGetAllSeries
+AS
+BEGIN
+    SELECT SeriesID, Title, GenreID, StartYear, EndYear, Country FROM tblSeries
+END
+GO
+
+
+CREATE PROCEDURE spAddEpisode 
+@SeriesID INT, @SeasonNumber INT, @EpisodeNumber INT, @Title VARCHAR(255), @Description VARCHAR(MAX), @ReleaseDate DATE
+AS
+BEGIN
+    INSERT INTO tblEpisodes (SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate) 
+    VALUES (@SeriesID, @SeasonNumber, @EpisodeNumber, @Title, @Description, @ReleaseDate)
+END
+GO
+
+
+CREATE PROCEDURE spUpdateEpisode 
+@EpisodeID INT, @SeriesID INT, @SeasonNumber INT, @EpisodeNumber INT, @Title VARCHAR(255), @Description VARCHAR(MAX), @ReleaseDate DATE
+AS
+BEGIN
+    UPDATE tblEpisodes 
+    SET SeriesID = @SeriesID, SeasonNumber = @SeasonNumber, EpisodeNumber = @EpisodeNumber, Title = @Title, Description = @Description, ReleaseDate = @ReleaseDate 
+    WHERE EpisodeID = @EpisodeID
+END
+GO
+
+
+CREATE PROCEDURE spDeleteEpisode 
+@EpisodeID INT
+AS
+BEGIN
+    DELETE FROM tblEpisodes WHERE EpisodeID = @EpisodeID
+END
+GO
+
+
+CREATE PROCEDURE spGetAllEpisodes
+AS
+BEGIN
+    SELECT EpisodeID, SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate FROM tblEpisodes
+END
+GO
+
+
+
+CREATE PROCEDURE spAddVideoFile 
+@MovieID INT, @SeriesID INT, @EpisodeID INT, @VideoQuality VARCHAR(50), @FilePath VARCHAR(MAX), @FileSize BIGINT
+AS
+BEGIN
+    INSERT INTO tblVideoFiles (MovieID, SeriesID, EpisodeID, VideoQuality, FilePath, FileSize) 
+    VALUES (@MovieID, @SeriesID, @EpisodeID, @VideoQuality, @FilePath, @FileSize)
+END
+GO
+
+CREATE PROCEDURE spUpdateVideoFile 
+@VideoFileID INT, @MovieID INT, @SeriesID INT, @EpisodeID INT, @VideoQuality VARCHAR(50), @FilePath VARCHAR(MAX), @FileSize BIGINT
+AS
+BEGIN
+    UPDATE tblVideoFiles 
+    SET MovieID = @MovieID, SeriesID = @SeriesID, EpisodeID = @EpisodeID, VideoQuality = @VideoQuality, FilePath = @FilePath, FileSize = @FileSize 
+    WHERE VideoFileID = @VideoFileID
+END
+GO
+
+
+
+CREATE PROCEDURE spDeleteVideoFile 
+@VideoFileID INT
+AS
+BEGIN
+    DELETE FROM tblVideoFiles WHERE VideoFileID = @VideoFileID
+END
+GO
+
+
+CREATE PROCEDURE spGetAllVideoFiles
+AS
+BEGIN
+    SELECT VideoFileID, MovieID, SeriesID, EpisodeID, VideoQuality, FilePath, FileSize FROM tblVideoFiles
+END
+GO
+
+
+
+CREATE PROCEDURE spAddTransaction 
+@UserID INT, @Amount DECIMAL(19,4), @TransactionDate DATE, @PaymentMethod VARCHAR(50), @Status VARCHAR(50)
+AS
+BEGIN
+    INSERT INTO tblTransactions (UserID, Amount, TransactionDate, PaymentMethod, Status) 
+    VALUES (@UserID, @Amount, @TransactionDate, @PaymentMethod, @Status)
+END
+GO
+
+
+CREATE PROCEDURE spUpdateTransaction 
+@TransactionID INT, @UserID INT, @Amount DECIMAL(19,4), @TransactionDate DATE, @PaymentMethod VARCHAR(50), @Status VARCHAR(50)
+AS
+BEGIN
+    UPDATE tblTransactions 
+    SET UserID = @UserID, Amount = @Amount, TransactionDate = @TransactionDate, PaymentMethod = @PaymentMethod, Status = @Status 
+    WHERE TransactionID = @TransactionID
+END
+GO
+
+
+CREATE PROCEDURE spDeleteTransaction 
+@TransactionID INT
+AS
+BEGIN
+    DELETE FROM tblTransactions WHERE TransactionID = @TransactionID
+END
+GO
+
+
+CREATE PROCEDURE spGetAllTransactions
+AS
+BEGIN
+    SELECT TransactionID, UserID, Amount, TransactionDate, PaymentMethod, Status FROM tblTransactions
+END
+GO
+
+
+
+CREATE PROCEDURE spAddDownload 
+@UserID INT, @MovieID INT, @SeriesID INT, @DownloadDate DATE, @ContentType VARCHAR(50), @DownloadQuality VARCHAR(50), @Status VARCHAR(50), @FileSize BIGINT
+AS
+BEGIN
+    INSERT INTO tblDownloads (UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize) 
+    VALUES (@UserID, @MovieID, @SeriesID, @DownloadDate, @ContentType, @DownloadQuality, @Status, @FileSize)
+END
+GO
+
+
+CREATE PROCEDURE spUpdateDownload 
+@DownloadID INT, @UserID INT, @MovieID INT, @SeriesID INT, @DownloadDate DATE, @ContentType VARCHAR(50), @DownloadQuality VARCHAR(50), @Status VARCHAR(50), @FileSize BIGINT
+AS
+BEGIN
+    UPDATE tblDownloads 
+    SET UserID = @UserID, MovieID = @MovieID, SeriesID = @SeriesID, DownloadDate = @DownloadDate, ContentType = @ContentType, DownloadQuality = @DownloadQuality, Status = @Status, FileSize = @FileSize 
+    WHERE DownloadID = @DownloadID
+END
+GO
+
+
+CREATE PROCEDURE spDeleteDownload 
+@DownloadID INT
+AS
+BEGIN
+    DELETE FROM tblDownloads WHERE DownloadID = @DownloadID
+END
+GO
+
+
+CREATE PROCEDURE spGetAllDownloads
+AS
+BEGIN
+    SELECT DownloadID, UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize FROM tblDownloads
+END
+GO
+
+CREATE PROCEDURE spFilterMoviesByGenre 
+@GenreID INT
+AS
+BEGIN
+    SELECT MovieID, Title, Description, Director, ReleaseDate, Duration 
+    FROM tblMovies 
+    WHERE GenreID = @GenreID
+END
+GO
+
+
+CREATE PROCEDURE spAddUserProfile 
+@UserID INT, @FirstName VARCHAR(255), @LastName VARCHAR(255), @DateOfBirth DATE
+AS
+BEGIN
+    INSERT INTO tblUserProfiles (UserID, FirstName, LastName, DateOfBirth) 
+    VALUES (@UserID, @FirstName, @LastName, @DateOfBirth)
+END
+GO
+
+
+CREATE PROCEDURE spUpdateUserProfile 
+@ProfileID INT, @FirstName VARCHAR(255), @LastName VARCHAR(255), @DateOfBirth DATE
+AS
+BEGIN
+    UPDATE tblUserProfiles 
+    SET FirstName = @FirstName, LastName = @LastName, DateOfBirth = @DateOfBirth 
+    WHERE ProfileID = @ProfileID
+END
+GO
+
+
+CREATE PROCEDURE spDeleteUserProfile 
+@ProfileID INT
+AS
+BEGIN
+    DELETE FROM tblUserProfiles WHERE ProfileID = @ProfileID
+END
+GO
+
+
+CREATE PROCEDURE spGetUserProfile 
+@ProfileID INT
+AS
+BEGIN
+    SELECT ProfileID, UserID, FirstName, LastName, DateOfBirth 
+    FROM tblUserProfiles 
+    WHERE ProfileID = @ProfileID
+END
+
+GO
+
+CREATE PROCEDURE spGetAllUserProfiles
+AS
+BEGIN
+    SELECT ProfileID, UserID, FirstName, LastName, DateOfBirth 
+    FROM tblUserProfiles
+END
+GO
+
+
+
+CREATE PROCEDURE spFilterUsersByRole
+@Role VARCHAR(50)
+AS
+BEGIN
+    SELECT UserID, Username, Email, Role
+    FROM tblUsers
+    WHERE Role = @Role
+END
+GO
+
+
+
+CREATE PROCEDURE spFilterMoviesByDirector
+@Director VARCHAR(255)
+AS
+BEGIN
+    SELECT MovieID, Title, Description, GenreID, Director, ReleaseDate, Duration
+    FROM tblMovies
+    WHERE Director = @Director
+END
+GO
+
+
+CREATE PROCEDURE spFilterSeriesByCountry
+@Country VARCHAR(255)
+AS
+BEGIN
+    SELECT SeriesID, Title, GenreID, StartYear, EndYear, Country
+    FROM tblSeries
+    WHERE Country = @Country
+END
+GO
+
+
+
+CREATE PROCEDURE spFilterEpisodesByReleaseYear
+@ReleaseYear INT
+AS
+BEGIN
+    SELECT EpisodeID, SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate
+    FROM tblEpisodes
+    WHERE YEAR(ReleaseDate) = @ReleaseYear
+END
+GO
+
+
+
+
+CREATE PROCEDURE spFilterDownloadsByDate
+@StartDate DATE, @EndDate DATE
+AS
+BEGIN
+    SELECT DownloadID, UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize
+    FROM tblDownloads
+    WHERE DownloadDate BETWEEN @StartDate AND @EndDate
+END
+
+GO
+
+
+CREATE PROCEDURE spFilterTransactionsByAmount
+@MinAmount DECIMAL(19,4), @MaxAmount DECIMAL(19,4)
+AS
+BEGIN
+    SELECT TransactionID, UserID, Amount, TransactionDate, PaymentMethod, Status
+    FROM tblTransactions
+    WHERE Amount BETWEEN @MinAmount AND @MaxAmount
+END
+GO
+
+
+
+
+CREATE PROCEDURE spFilterTransactionsByUser
+@UserID INT
+AS
+BEGIN
+    SELECT TransactionID, Amount, TransactionDate, PaymentMethod, Status
+    FROM tblTransactions
+    WHERE UserID = @UserID
+END
+
+GO
+
+
+CREATE PROCEDURE spFilterDownloadsByUser
+@UserID INT
+AS
+BEGIN
+    SELECT DownloadID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize
+    FROM tblDownloads
+    WHERE UserID = @UserID
+END
+GO
+
+
+
+
+CREATE PROCEDURE spFilterEpisodesBySeries
+@SeriesID INT
+AS
+BEGIN
+    SELECT EpisodeID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate
+    FROM tblEpisodes
+    WHERE SeriesID = @SeriesID
+END
+GO
+
+
+
+
+CREATE PROCEDURE spFilterVideoFilesByQuality
+@VideoQuality VARCHAR(50)
+AS
+BEGIN
+    SELECT VideoFileID, MovieID, SeriesID, EpisodeID, FilePath, FileSize
+    FROM tblVideoFiles
+    WHERE VideoQuality = @VideoQuality
+END
+
+GO
+
+
+CREATE PROCEDURE spFilterMoviesByReleaseYear
+@ReleaseYear INT
+AS
+BEGIN
+    SELECT MovieID, Title, Description, GenreID, Director, ReleaseDate, Duration
+    FROM tblMovies
+    WHERE YEAR(ReleaseDate) = @ReleaseYear
+END
+GO
+
+
+
+CREATE PROCEDURE spFilterUserProfilesByAge
+@MinAge INT, @MaxAge INT
+AS
+BEGIN
+    DECLARE @CurrentDate DATE = GETDATE()
+    SELECT ProfileID, UserID, FirstName, LastName, DateOfBirth
+    FROM tblUserProfiles
+    WHERE (DATEDIFF(YEAR, DateOfBirth, @CurrentDate) - CASE WHEN (MONTH(DateOfBirth) > MONTH(@CurrentDate)) OR (MONTH(DateOfBirth) = MONTH(@CurrentDate) AND DAY(DateOfBirth) > DAY(@CurrentDate)) THEN 1 ELSE 0 END) BETWEEN @MinAge AND @MaxAge
+END
+GO
+
+
+
+
+CREATE PROCEDURE spFilterSeriesByGenre
+@GenreID INT
+AS
+BEGIN
+    SELECT SeriesID, Title, StartYear, EndYear, Country
+    FROM tblSeries
+    WHERE GenreID = @GenreID
+END
+GO
+
+
+
+CREATE PROCEDURE spFilterMoviesByParent
+@ParentMovieID INT
+AS
+BEGIN
+    SELECT MovieID, Title, Description, GenreID, Director, ReleaseDate, Duration
+    FROM tblMovies
+    WHERE ParentMovieID = @ParentMovieID
+END
+GO
+
+
+
+CREATE PROCEDURE spListRecentTransactions
+@RecentDays INT
+AS
+BEGIN
+    SELECT TransactionID, UserID, Amount, TransactionDate, PaymentMethod, Status
+    FROM tblTransactions
+    WHERE TransactionDate >= DATEADD(DAY, -@RecentDays, GETDATE())
+END
+GO
+
+
+CREATE PROCEDURE spListActiveDownloads
+@HoursAgo INT
+AS
+BEGIN
+    SELECT DownloadID, UserID, MovieID, SeriesID, DownloadDate, ContentType, DownloadQuality, Status, FileSize
+    FROM tblDownloads
+    WHERE DownloadDate >= DATEADD(HOUR, -@HoursAgo, GETDATE()) AND Status IN ('InProgress', 'Completed')
+END
+GO
+
+
+CREATE PROCEDURE spGetMoviesByDuration
+@MinDuration INT, @MaxDuration INT
+AS
+BEGIN
+    SELECT MovieID, Title, Description, GenreID, Director, ReleaseDate, Duration
+    FROM tblMovies
+    WHERE Duration BETWEEN @MinDuration AND @MaxDuration
+END
+GO
+
+
+
+CREATE PROCEDURE spFindUserByUsername
+@Username VARCHAR(255)
+AS
+BEGIN
+    SELECT UserID, Username, Email, Role
+    FROM tblUsers
+    WHERE Username = @Username
+END
+GO
+
+
+
+
+CREATE PROCEDURE spAggregateMoviesByGenre
+AS
+BEGIN
+    SELECT g.Name AS Genre, COUNT(m.MovieID) AS TotalMovies, AVG(m.Duration) AS AverageDuration
+    FROM tblMovies m
+    JOIN tblGenres g ON m.GenreID = g.GenreID
+    GROUP BY g.Name
+END
+GO
+
+
+
+CREATE PROCEDURE spListSeriesWithMostEpisodes
+AS
+BEGIN
+    SELECT TOP 5 s.SeriesID, s.Title, COUNT(e.EpisodeID) AS EpisodeCount
+    FROM tblSeries s
+    JOIN tblEpisodes e ON s.SeriesID = e.SeriesID
+    GROUP BY s.SeriesID, s.Title
+    ORDER BY EpisodeCount DESC
+END
+GO
+
+
+
+CREATE PROCEDURE spRetrieveTransactionsForAudit
+@StartDate DATE, @EndDate DATE
+AS
+BEGIN
+    SELECT TransactionID, UserID, Amount, TransactionDate, PaymentMethod, Status
+    FROM tblTransactions
+    WHERE TransactionDate BETWEEN @StartDate AND @EndDate
+    ORDER BY TransactionDate DESC
+END
+GO
+
+
+
+CREATE PROCEDURE spDynamicSearch
+@SearchTerm VARCHAR(255)
+AS
+BEGIN
+    SELECT 'User' AS Type, UserID AS ID, Username AS Name
+    FROM tblUsers
+    WHERE Username LIKE '%' + @SearchTerm + '%'
+    UNION ALL
+    SELECT 'Movie', MovieID, Title
+    FROM tblMovies
+    WHERE Title LIKE '%' + @SearchTerm + '%'
+    UNION ALL
+    SELECT 'Series', SeriesID, Title
+    FROM tblSeries
+    WHERE Title LIKE '%' + @SearchTerm + '%'
+END
+GO
+
+
+
+CREATE PROCEDURE spGenerateUserReport
+@UserID INT
+AS
+BEGIN
+    SELECT u.UserID, u.Username, u.Email, up.FirstName, up.LastName, up.DateOfBirth
+    FROM tblUsers u
+    JOIN tblUserProfiles up ON u.UserID = up.UserID
+    WHERE u.UserID = @UserID;
+    SELECT d.DownloadID, d.DownloadDate, d.ContentType, d.DownloadQuality, d.Status, d.FileSize
+    FROM tblDownloads d
+    WHERE d.UserID = @UserID;
+    SELECT t.TransactionID, t.Amount, t.TransactionDate, t.PaymentMethod, t.Status
+    FROM tblTransactions t
+    WHERE t.UserID = @UserID;
+END
+GO
+
+CREATE PROCEDURE spGetAllTransactionDetails
+AS
+BEGIN
+    SELECT t.TransactionID, t.Amount, t.TransactionDate, t.PaymentMethod, t.Status, u.Username
+    FROM tblTransactions t
+    JOIN tblUsers u ON t.UserID = u.UserID
+END
+GO
+
+
+CREATE PROCEDURE spSearchUsers
+    @SearchText NVARCHAR(100)
+AS
+BEGIN
+    SELECT UserID, Username
+    FROM tblUsers
+    WHERE Username LIKE '%' + @SearchText + '%'
+END
+GO
