@@ -52,10 +52,23 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
         TransactionManager tm = new TransactionManager();
         tm.AddTransaction(userId, amount, transactionDate, paymentMethod, status);
         lblMessage.Text = "Transaction saved successfully!";
+
+        // Clear the form fields
+        ClearFormFields();
+
+        // Reload transactions
         LoadTransactions();
     }
 
-
+    private void ClearFormFields()
+    {
+        txtAmount.Text = string.Empty;
+        txtTransactionDate.Text = string.Empty;
+        ddlPaymentMethod.SelectedIndex = 0;
+        ddlStatus.SelectedIndex = 0;
+        // Clear the hidden input field for username
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "clearUsernameInput", "document.getElementById('usernameInput').value = '';", true);
+    }
     private void LoadTransactions()
     {
         TransactionManager tm = new TransactionManager();
