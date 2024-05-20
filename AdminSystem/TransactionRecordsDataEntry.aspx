@@ -49,7 +49,7 @@
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
             <asp:Label ID="lblMessage" runat="server"></asp:Label>
             
-            <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False">
+            <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False" AllowPaging="True" PageSize="10" OnPageIndexChanging="gvTransactions_PageIndexChanging">
                 <Columns>
                     <asp:BoundField DataField="TransactionID" HeaderText="Transaction ID" />
                     <asp:BoundField DataField="Username" HeaderText="Username" />

@@ -62,4 +62,9 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
         gvTransactions.DataSource = tm.GetAllTransactionDetails();  // Ensure this method calls the new or updated stored procedure
         gvTransactions.DataBind();
     }
+    protected void gvTransactions_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvTransactions.PageIndex = e.NewPageIndex;
+        LoadTransactions();
+    }
 }
