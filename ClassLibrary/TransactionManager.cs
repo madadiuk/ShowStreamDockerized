@@ -53,15 +53,23 @@ public class TransactionManager
         return connection.DataTable;
     }
 
-    public void UpdateTransaction(int transactionId, int userId, decimal amount, DateTime transactionDate, string paymentMethod, string status)
+    public void UpdateTransaction(int transactionId, decimal amount, DateTime transactionDate, string paymentMethod, string status)
     {
         connection.AddParameter("@TransactionID", transactionId);
-        connection.AddParameter("@UserID", userId);
         connection.AddParameter("@Amount", amount);
         connection.AddParameter("@TransactionDate", transactionDate);
         connection.AddParameter("@PaymentMethod", paymentMethod);
         connection.AddParameter("@Status", status);
         connection.Execute("spUpdateTransaction");
+    }
+    public List<string> GetPaymentMethods()
+    {
+        return new List<string> { "PayPal", "Debit Card", "Credit Card" };
+    }
+
+    public List<string> GetStatuses()
+    {
+        return new List<string> { "Completed", "Pending", "Failed" };
     }
 
     public void DeleteTransaction(int transactionId)
@@ -80,6 +88,12 @@ public class TransactionManager
     {
         connection.Execute("spGetAllTransactionDetails");  // Ensure this stored procedure returns Username along with other transaction details
         return connection.DataTable;
+    }
+    public int GetUserIdByUsername(string username)
+    {
+        connection.AddParameter("@Username", username);
+        connection.Execute("spFindUserByUsername");
+        return connection.DataTable.Rows.Count > 0 ? Convert.ToInt32(connection.DataTable.Rows[0]["UserID"]) : 0;
     }
 
 
