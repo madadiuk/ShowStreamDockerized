@@ -971,7 +971,12 @@ BEGIN
     FROM tblUsers
     WHERE Username LIKE '%' + @SearchText + '%'
 END
-
+CREATE PROCEDURE spGetAllGenres
+AS
+BEGIN
+    SELECT GenreID, Name, Description
+    FROM tblGenres
+END
 
 
 # Database ERD Diagram:
