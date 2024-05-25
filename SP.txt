@@ -675,3 +675,11 @@ BEGIN
     WHERE Username LIKE '%' + @SearchText + '%'
 END
 GO
+
+
+CREATE PROCEDURE spGetAllGenres
+AS
+BEGIN
+    SELECT GenreID, Name, Description
+    FROM tblGenres
+END
