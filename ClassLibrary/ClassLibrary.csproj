@@ -42,10 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsDataConnection.cs" />
+    <Compile Include="GenresManager.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Include="PasswordHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionManager.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\ClassLibrary.dll" />
+    <Content Include="bin\Debug\ClassLibrary.pdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
