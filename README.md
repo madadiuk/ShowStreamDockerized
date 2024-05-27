@@ -1020,8 +1020,61 @@ BEGIN
     WHERE VideoQuality = @VideoQuality;
 END
 
+## Check If User Exists
 
+CREATE PROCEDURE spCheckUserExists
+    @Username NVARCHAR(50)
+AS
+BEGIN
+    SELECT 1
+    FROM tblUsers
+    WHERE Username = @Username
+END
 
+## Get User By Id
+
+CREATE PROCEDURE spGetUserById
+    @UserID INT
+AS
+BEGIN
+    SELECT UserID, Username, Email, Role
+    FROM tblUsers
+    WHERE UserID = @UserID
+END
+
+## Add Password Reset Token
+
+CREATE PROCEDURE spAddPasswordResetToken
+    @UserID INT,
+    @ResetToken NVARCHAR(255)
+AS
+BEGIN
+    INSERT INTO tblPasswordResets (UserID, ResetToken)
+    VALUES (@UserID, @ResetToken)
+END
+
+## Get User Id By Reset Token
+
+CREATE PROCEDURE spGetUserIDByResetToken
+    @ResetToken NVARCHAR(255)
+AS
+BEGIN
+    SELECT UserID
+    FROM tblPasswordResets
+    WHERE ResetToken = @ResetToken
+END
+
+## Reset Password
+
+CREATE PROCEDURE spResetPassword
+    @UserID INT,
+    @Password NVARCHAR(255)
+AS
+BEGIN
+    UPDATE tblUsers
+    SET Password = @Password
+    WHERE UserID = @UserID
+END
 # Database ERD Diagram:
 ![ShowStream ERD diagram (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/65ffd793-bef9-43b2-aad5-fcb1c8b4ecda)
 
