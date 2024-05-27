@@ -728,13 +728,14 @@ END
 
 
 CREATE PROCEDURE spCheckUserExists
-    @Username NVARCHAR(50)
+    @Username VARCHAR(255)
 AS
 BEGIN
-    SELECT 1
+    SELECT COUNT(*) AS UserCount
     FROM tblUsers
-    WHERE Username = @Username
+    WHERE Username = @Username;
 END
+
 GO
 
 
