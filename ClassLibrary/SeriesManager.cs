@@ -10,6 +10,14 @@ public class SeriesManager
         db = new clsDataConnection();
     }
 
+    public bool SeriesExists(int seriesId)
+    {
+        db = new clsDataConnection();
+        db.AddParameter("@SeriesID", seriesId);
+        db.Execute("spGetSeriesById"); // Ensure you have this stored procedure
+        return db.Count > 0;
+    }
+
     public DataTable GetAllSeries()
     {
         db = new clsDataConnection();
