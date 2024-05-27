@@ -5,40 +5,58 @@
 <head runat="server">
     <title>User Management</title>
     <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+    <style>
+        .form-control {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
-            <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
-
-            <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
-            <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
-
-            <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
-            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
-
-            <asp:Label ID="lblRole" runat="server" Text="Role:"></asp:Label>
-            <asp:DropDownList ID="ddlRole" runat="server">
-                <asp:ListItem Value="Admin">Admin</asp:ListItem>
-                <asp:ListItem Value="User">User</asp:ListItem>
-                <asp:ListItem Value="Guest">Guest</asp:ListItem>
-            </asp:DropDownList>
-
-            <asp:Button ID="btnAddUser" runat="server" Text="Add User" OnClick="btnAddUser_Click" />
-            <asp:Button ID="btnEditUser" runat="server" Text="Edit User" OnClick="btnEditUser_Click" />
-
-            <asp:HiddenField ID="hfUserID" runat="server" />
-
-            <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" OnRowEditing="gvUsers_RowEditing" OnRowDeleting="gvUsers_RowDeleting">
-                <Columns>
-                    <asp:BoundField DataField="UserID" HeaderText="User ID" />
-                    <asp:BoundField DataField="Username" HeaderText="Username" />
-                    <asp:BoundField DataField="Email" HeaderText="Email" />
-                    <asp:BoundField DataField="Role" HeaderText="Role" />
-                    <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
-                </Columns>
-            </asp:GridView>
+        <div class="container">
+            <h2>User Management</h2>
+            <div class="form-group form-control">
+                <asp:Label ID="lblUserID" runat="server" Text="User ID:" AssociatedControlID="hfUserID" />
+                <asp:HiddenField ID="hfUserID" runat="server" />
+            </div>
+            <div class="form-group form-control">
+                <asp:Label ID="lblUsername" runat="server" Text="Username:" AssociatedControlID="txtUsername" />
+                <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" />
+            </div>
+            <div class="form-group form-control">
+                <asp:Label ID="lblEmail" runat="server" Text="Email:" AssociatedControlID="txtEmail" />
+                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" />
+            </div>
+            <div class="form-group form-control">
+                <asp:Label ID="lblPassword" runat="server" Text="Password:" AssociatedControlID="txtPassword" />
+                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" />
+            </div>
+            <div class="form-group form-control">
+                <asp:Label ID="lblRole" runat="server" Text="Role:" AssociatedControlID="ddlRole" />
+                <asp:DropDownList ID="ddlRole" runat="server" CssClass="form-control">
+                    <asp:ListItem Text="Admin" Value="Admin" />
+                    <asp:ListItem Text="User" Value="User" />
+                </asp:DropDownList>
+            </div>
+            <div class="form-group form-control">
+                <asp:Button ID="btnAddUser" runat="server" Text="Add User" CssClass="btn btn-primary" OnClick="btnAddUser_Click" />
+                <asp:Button ID="btnEditUser" runat="server" Text="Edit User" CssClass="btn btn-warning" OnClick="btnEditUser_Click" />
+            </div>
+            <div class="form-group">
+                <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" DataKeyNames="UserID" OnRowEditing="gvUsers_RowEditing" OnRowDeleting="gvUsers_RowDeleting" CssClass="table table-bordered">
+                    <Columns>
+                        <asp:BoundField DataField="UserID" HeaderText="User ID" ReadOnly="True" />
+                        <asp:BoundField DataField="Username" HeaderText="Username" />
+                        <asp:BoundField DataField="Email" HeaderText="Email" />
+                        <asp:BoundField DataField="Role" HeaderText="Role" />
+                        <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                    </Columns>
+                </asp:GridView>
+            </div>
         </div>
     </form>
 </body>
