@@ -979,6 +979,49 @@ BEGIN
 END
 
 
+CREATE PROCEDURE spGetSeriesById
+    @SeriesID INT
+AS
+BEGIN
+    SELECT SeriesID, Title
+    FROM tblSeries
+    WHERE SeriesID = @SeriesID
+END
+
+CREATE PROCEDURE spFilterEpisodes
+    @SeriesID INT = NULL,
+    @SeasonNumber INT = NULL,
+    @EpisodeNumber INT = NULL,
+    @ReleaseDate DATE = NULL
+AS
+BEGIN
+    SELECT EpisodeID, SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate
+    FROM tblEpisodes
+    WHERE (@SeriesID IS NULL OR SeriesID = @SeriesID)
+      AND (@SeasonNumber IS NULL OR SeasonNumber = @SeasonNumber)
+      AND (@EpisodeNumber IS NULL OR EpisodeNumber = @EpisodeNumber)
+      AND (@ReleaseDate IS NULL OR ReleaseDate = @ReleaseDate)
+END
+
+
+CREATE PROCEDURE spFilterVideoFilesByQuality
+    @VideoQuality VARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        VideoFileID,
+        MovieID,
+        SeriesID,
+        EpisodeID,
+        VideoQuality,
+        FilePath,
+        FileSize
+    FROM tblVideoFiles
+    WHERE VideoQuality = @VideoQuality;
+END
+
+
+
 # Database ERD Diagram:
 ![ShowStream ERD diagram (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/65ffd793-bef9-43b2-aad5-fcb1c8b4ecda)
 
