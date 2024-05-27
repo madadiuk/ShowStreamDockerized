@@ -52,6 +52,7 @@
     <Compile Include="TransactionManager.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="VideoFilesManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\ClassLibrary.dll" />
