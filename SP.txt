@@ -676,7 +676,7 @@ END
 GO
 
 
-<<<<<<< HEAD
+
 CREATE PROCEDURE [dbo].[spGetTransactionById]
     @TransactionID INT
 AS
@@ -694,14 +694,16 @@ BEGIN
         tblUsers u ON t.UserID = u.UserID
     WHERE 
         t.TransactionID = @TransactionID
-=======
+END
+GO
+
 CREATE PROCEDURE spGetAllGenres
 AS
 BEGIN
     SELECT GenreID, Name, Description
     FROM tblGenres
 END
-...........
+GO
 
 
 CREATE PROCEDURE spGetSeriesById
@@ -712,6 +714,7 @@ BEGIN
     FROM tblSeries
     WHERE SeriesID = @SeriesID
 END
+GO
 
 CREATE PROCEDURE spFilterEpisodes
     @SeriesID INT = NULL,
@@ -727,7 +730,7 @@ BEGIN
       AND (@EpisodeNumber IS NULL OR EpisodeNumber = @EpisodeNumber)
       AND (@ReleaseDate IS NULL OR ReleaseDate = @ReleaseDate)
 END
-
+GO
 
 CREATE PROCEDURE spFilterVideoFilesByQuality
     @VideoQuality VARCHAR(50)
@@ -744,7 +747,7 @@ BEGIN
     FROM tblVideoFiles
     WHERE VideoQuality = @VideoQuality;
 END
-
+GO
 
 CREATE PROCEDURE spCheckUserExists
     @Username VARCHAR(255)
@@ -753,12 +756,12 @@ BEGIN
     SELECT COUNT(*) AS UserCount
     FROM tblUsers
     WHERE Username = @Username;
->>>>>>> 404523c6a3a9a55a23642e6913bb9c20cb24d166
+
 END
 
 GO
 
-<<<<<<< HEAD
+
 CREATE PROCEDURE spGetFilteredTransactions
     @PaymentMethod NVARCHAR(50) = NULL,
     @Status NVARCHAR(50) = NULL,
@@ -786,7 +789,6 @@ BEGIN
         t.TransactionDate DESC
 END
 GO
-=======
 
 CREATE PROCEDURE spGetUserById
     @UserID INT
@@ -831,4 +833,4 @@ BEGIN
     WHERE UserID = @UserID
 END
 GO
->>>>>>> 404523c6a3a9a55a23642e6913bb9c20cb24d166
+

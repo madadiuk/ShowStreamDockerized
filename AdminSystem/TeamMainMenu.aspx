@@ -15,6 +15,7 @@
             <asp:Button ID="btnGoToEpisodesManagement" runat="server" Text="Go to Episodes Management" OnClick="btnGoToEpisodesManagement_Click" /><br /><br />
             <asp:Button ID="btnGoToGenresManagement" runat="server" Text="Go to Genres Management" OnClick="btnGoToGenresManagement_Click" /><br /><br />
             <asp:Button ID="btnGoToUserManagement" runat="server" Text="Go to User Management" OnClick="btnGoToUserManagement_Click" />
+            <asp:Button ID="Button1" runat="server" Text="Go to movie Management Data Entry" OnClick="btnGoToMoviesManagementDataEntry_Click" />
         </div>
     </form>
 </body>
