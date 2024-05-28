@@ -1,6 +1,5 @@
 
 
-
 CREATE PROCEDURE spAddUser 
 @Username VARCHAR(255), 
 @Email VARCHAR(255), 
@@ -677,6 +676,7 @@ END
 GO
 
 
+<<<<<<< HEAD
 CREATE PROCEDURE [dbo].[spGetTransactionById]
     @TransactionID INT
 AS
@@ -694,10 +694,71 @@ BEGIN
         tblUsers u ON t.UserID = u.UserID
     WHERE 
         t.TransactionID = @TransactionID
+=======
+CREATE PROCEDURE spGetAllGenres
+AS
+BEGIN
+    SELECT GenreID, Name, Description
+    FROM tblGenres
+END
+...........
+
+
+CREATE PROCEDURE spGetSeriesById
+    @SeriesID INT
+AS
+BEGIN
+    SELECT SeriesID, Title
+    FROM tblSeries
+    WHERE SeriesID = @SeriesID
+END
+
+CREATE PROCEDURE spFilterEpisodes
+    @SeriesID INT = NULL,
+    @SeasonNumber INT = NULL,
+    @EpisodeNumber INT = NULL,
+    @ReleaseDate DATE = NULL
+AS
+BEGIN
+    SELECT EpisodeID, SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate
+    FROM tblEpisodes
+    WHERE (@SeriesID IS NULL OR SeriesID = @SeriesID)
+      AND (@SeasonNumber IS NULL OR SeasonNumber = @SeasonNumber)
+      AND (@EpisodeNumber IS NULL OR EpisodeNumber = @EpisodeNumber)
+      AND (@ReleaseDate IS NULL OR ReleaseDate = @ReleaseDate)
+END
+
+
+CREATE PROCEDURE spFilterVideoFilesByQuality
+    @VideoQuality VARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        VideoFileID,
+        MovieID,
+        SeriesID,
+        EpisodeID,
+        VideoQuality,
+        FilePath,
+        FileSize
+    FROM tblVideoFiles
+    WHERE VideoQuality = @VideoQuality;
+END
+
+
+CREATE PROCEDURE spCheckUserExists
+    @Username VARCHAR(255)
+AS
+BEGIN
+    SELECT COUNT(*) AS UserCount
+    FROM tblUsers
+    WHERE Username = @Username;
+>>>>>>> 404523c6a3a9a55a23642e6913bb9c20cb24d166
 END
 
 GO
 
+<<<<<<< HEAD
 CREATE PROCEDURE spGetFilteredTransactions
     @PaymentMethod NVARCHAR(50) = NULL,
     @Status NVARCHAR(50) = NULL,
@@ -725,3 +786,49 @@ BEGIN
         t.TransactionDate DESC
 END
 GO
+=======
+
+CREATE PROCEDURE spGetUserById
+    @UserID INT
+AS
+BEGIN
+    SELECT UserID, Username, Email, Role
+    FROM tblUsers
+    WHERE UserID = @UserID
+END
+GO
+
+
+CREATE PROCEDURE spAddPasswordResetToken
+    @UserID INT,
+    @ResetToken NVARCHAR(255)
+AS
+BEGIN
+    INSERT INTO tblPasswordResets (UserID, ResetToken)
+    VALUES (@UserID, @ResetToken)
+END
+GO
+
+
+CREATE PROCEDURE spGetUserIDByResetToken
+    @ResetToken NVARCHAR(255)
+AS
+BEGIN
+    SELECT UserID
+    FROM tblPasswordResets
+    WHERE ResetToken = @ResetToken
+END
+GO
+
+
+CREATE PROCEDURE spResetPassword
+    @UserID INT,
+    @Password NVARCHAR(255)
+AS
+BEGIN
+    UPDATE tblUsers
+    SET Password = @Password
+    WHERE UserID = @UserID
+END
+GO
+>>>>>>> 404523c6a3a9a55a23642e6913bb9c20cb24d166

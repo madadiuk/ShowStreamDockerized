@@ -980,6 +980,12 @@ BEGIN
     FROM tblUsers
     WHERE Username LIKE '%' + @SearchText + '%'
 END
+CREATE PROCEDURE spGetAllGenres
+AS
+BEGIN
+    SELECT GenreID, Name, Description
+    FROM tblGenres
+END
 
 ## New spGetTransactionById added 26/05/2024
 
@@ -1044,7 +1050,102 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE spGetSeriesById
+    @SeriesID INT
+AS
+BEGIN
+    SELECT SeriesID, Title
+    FROM tblSeries
+    WHERE SeriesID = @SeriesID
+END
 
+CREATE PROCEDURE spFilterEpisodes
+    @SeriesID INT = NULL,
+    @SeasonNumber INT = NULL,
+    @EpisodeNumber INT = NULL,
+    @ReleaseDate DATE = NULL
+AS
+BEGIN
+    SELECT EpisodeID, SeriesID, SeasonNumber, EpisodeNumber, Title, Description, ReleaseDate
+    FROM tblEpisodes
+    WHERE (@SeriesID IS NULL OR SeriesID = @SeriesID)
+      AND (@SeasonNumber IS NULL OR SeasonNumber = @SeasonNumber)
+      AND (@EpisodeNumber IS NULL OR EpisodeNumber = @EpisodeNumber)
+      AND (@ReleaseDate IS NULL OR ReleaseDate = @ReleaseDate)
+END
+
+
+CREATE PROCEDURE spFilterVideoFilesByQuality
+    @VideoQuality VARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        VideoFileID,
+        MovieID,
+        SeriesID,
+        EpisodeID,
+        VideoQuality,
+        FilePath,
+        FileSize
+    FROM tblVideoFiles
+    WHERE VideoQuality = @VideoQuality;
+END
+
+## Check If User Exists
+
+CREATE PROCEDURE spCheckUserExists
+    @Username NVARCHAR(50)
+AS
+BEGIN
+    SELECT 1
+    FROM tblUsers
+    WHERE Username = @Username
+END
+
+## Get User By Id
+
+CREATE PROCEDURE spGetUserById
+    @UserID INT
+AS
+BEGIN
+    SELECT UserID, Username, Email, Role
+    FROM tblUsers
+    WHERE UserID = @UserID
+END
+
+## Add Password Reset Token
+
+CREATE PROCEDURE spAddPasswordResetToken
+    @UserID INT,
+    @ResetToken NVARCHAR(255)
+AS
+BEGIN
+    INSERT INTO tblPasswordResets (UserID, ResetToken)
+    VALUES (@UserID, @ResetToken)
+END
+
+## Get User Id By Reset Token
+
+CREATE PROCEDURE spGetUserIDByResetToken
+    @ResetToken NVARCHAR(255)
+AS
+BEGIN
+    SELECT UserID
+    FROM tblPasswordResets
+    WHERE ResetToken = @ResetToken
+END
+
+## Reset Password
+
+CREATE PROCEDURE spResetPassword
+    @UserID INT,
+    @Password NVARCHAR(255)
+AS
+BEGIN
+    UPDATE tblUsers
+    SET Password = @Password
+    WHERE UserID = @UserID
+END
 # Database ERD Diagram:
 ![ShowStream ERD diagram (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/65ffd793-bef9-43b2-aad5-fcb1c8b4ecda)
 
