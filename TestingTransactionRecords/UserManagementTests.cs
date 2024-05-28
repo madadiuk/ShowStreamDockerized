@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-
+using ClassLibrary;
 
 namespace TestingTransactionRecords
 {
@@ -10,7 +10,9 @@ namespace TestingTransactionRecords
         [TestMethod]
         public void TestMethod1()
         {
+            // Placeholder for user management tests
         }
+
         [TestMethod]
         public void InstanceOK()
         {

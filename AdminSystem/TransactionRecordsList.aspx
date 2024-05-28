@@ -13,15 +13,16 @@
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <!-- Add New Transaction Button -->
+        <asp:Button ID="btnAddNewTransaction" runat="server" Text="Add New Transaction" OnClick="btnAddNewTransaction_Click" /><br /><br />
+        <asp:Button ID="btnFilterTransactions" runat="server" Text="Filter Transactions" OnClick="btnFilterTransactions_Click" /><br /><br />
+        <asp:Button ID="btnViewStatistics" runat="server" Text="View Statistics" OnClick="btnViewStatistics_Click" /><br /><br />
+        <asp:Button ID="btnReturnToMainMenu" runat="server" Text="Return to Main Menu" OnClick="btnReturnToMainMenu_Click" /><br /><br />
 
         <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False" AllowPaging="True" PageSize="10"
-                      OnPageIndexChanging="gvTransactions_PageIndexChanging"
-                      OnRowEditing="gvTransactions_RowEditing"
-                      OnRowUpdating="gvTransactions_RowUpdating"
-                      OnRowCancelingEdit="gvTransactions_RowCancelingEdit"
-                      OnRowDeleting="gvTransactions_RowDeleting"
-                      OnRowDataBound="gvTransactions_RowDataBound"
-                      DataKeyNames="TransactionID">
+                          OnPageIndexChanging="gvTransactions_PageIndexChanging"
+                          OnRowDeleting="gvTransactions_RowDeleting"
+                          OnRowCommand="gvTransactions_RowCommand">
             <Columns>
                 <asp:BoundField DataField="TransactionID" HeaderText="Transaction ID" ReadOnly="True" />
                 <asp:BoundField DataField="Username" HeaderText="Username" ReadOnly="True" />
@@ -29,36 +30,29 @@
                     <ItemTemplate>
                         <asp:Label ID="lblAmount" runat="server" Text='<%# Eval("Amount", "£{0:N2}") %>'></asp:Label>
                     </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:TextBox ID="txtAmount" runat="server" Text='<%# Bind("Amount") %>'></asp:TextBox>
-                    </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Transaction Date">
                     <ItemTemplate>
                         <asp:Label ID="lblTransactionDate" runat="server" Text='<%# Eval("TransactionDate", "{0:d}") %>'></asp:Label>
                     </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:TextBox ID="txtTransactionDate" runat="server" Text='<%# Bind("TransactionDate", "{0:yyyy-MM-dd}") %>'></asp:TextBox>
-                        <ajaxToolkit:CalendarExtender ID="ceTransactionDate" runat="server" TargetControlID="txtTransactionDate" Format="yyyy-MM-dd" />
-                    </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Payment Method">
                     <ItemTemplate>
                         <asp:Label ID="lblPaymentMethod" runat="server" Text='<%# Eval("PaymentMethod") %>'></asp:Label>
                     </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:DropDownList ID="ddlPaymentMethod" runat="server" SelectedValue='<%# Bind("PaymentMethod") %>'></asp:DropDownList>
-                    </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Status">
                     <ItemTemplate>
                         <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
                     </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:DropDownList ID="ddlStatus" runat="server" SelectedValue='<%# Bind("Status") %>'></asp:DropDownList>
-                    </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                <asp:TemplateField HeaderText="Actions">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkView" runat="server" Text="View" CommandName="View" CommandArgument='<%# Eval("TransactionID") %>'></asp:LinkButton>
+                        &nbsp;
+                        <asp:LinkButton ID="lnkDelete" runat="server" Text="Delete" CommandName="Delete" CommandArgument='<%# Eval("TransactionID") %>'></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
         

@@ -47,6 +47,7 @@
             </asp:DropDownList>
             
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
+        <asp:Button ID="btnViewList" runat="server" Text="View Transaction List" OnClick="btnViewList_Click" CausesValidation="false" /><br />
             <asp:Label ID="lblMessage" runat="server"></asp:Label>
             
             <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False" AllowPaging="True" PageSize="10" OnPageIndexChanging="gvTransactions_PageIndexChanging">

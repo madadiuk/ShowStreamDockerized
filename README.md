@@ -47,6 +47,15 @@ p2731259
 # Password:
 42714271427142714271
 
+## additional component:
+
+# You can install Selenium WebDriver and ChromeDriver using NuGet Package Manager Console:
+
+
+Install-Package Selenium.WebDriver
+
+Install-Package Selenium.WebDriver.ChromeDriver
+
 
 ## datebase code
 
@@ -972,6 +981,68 @@ BEGIN
     WHERE Username LIKE '%' + @SearchText + '%'
 END
 
+## New spGetTransactionById added 26/05/2024
+
+CREATE PROCEDURE [dbo].[spGetTransactionById]
+    @TransactionID INT
+AS
+BEGIN
+    SELECT 
+        t.TransactionID, 
+        u.Username, 
+        t.Amount, 
+        t.TransactionDate, 
+        t.PaymentMethod, 
+        t.Status
+    FROM 
+        tblTransactions t
+    JOIN 
+        tblUsers u ON t.UserID = u.UserID
+    WHERE 
+        t.TransactionID = @TransactionID
+END
+## New spGetFilteredTransactions added 26/05/2024
+
+CREATE PROCEDURE spGetFilteredTransactions
+    @PaymentMethod NVARCHAR(50) = NULL,
+    @Status NVARCHAR(50) = NULL,
+    @DateFrom DATETIME = NULL,
+    @DateTo DATETIME = NULL
+AS
+BEGIN
+    SELECT 
+        t.TransactionID, 
+        u.Username, 
+        t.Amount, 
+        t.TransactionDate, 
+        t.PaymentMethod, 
+        t.Status
+    FROM 
+        tblTransactions t
+    INNER JOIN 
+        tblUsers u ON t.UserID = u.UserID
+    WHERE 
+        (@PaymentMethod IS NULL OR t.PaymentMethod = @PaymentMethod)
+        AND (@Status IS NULL OR t.Status = @Status)
+        AND (@DateFrom IS NULL OR t.TransactionDate >= @DateFrom)
+        AND (@DateTo IS NULL OR t.TransactionDate <= @DateTo)
+    ORDER BY 
+        t.TransactionDate DESC
+END
+## New spGetTransactionStatistics added 26/05/2024
+
+CREATE PROCEDURE spGetTransactionStatistics
+AS
+BEGIN
+    SELECT 
+        COUNT(TransactionID) AS TotalTransactions,
+        SUM(Amount) AS TotalAmount,
+        AVG(Amount) AS AverageAmount,
+        COUNT(DISTINCT UserID) AS UniqueUsers
+    FROM 
+        tblTransactions
+END
+GO
 
 
 # Database ERD Diagram:
