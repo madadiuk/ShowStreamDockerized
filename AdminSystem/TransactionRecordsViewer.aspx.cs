@@ -40,4 +40,9 @@ public partial class TransactionRecordsViewer : System.Web.UI.Page
             Response.Redirect("TransactionRecordsEdit.aspx?TransactionID=" + transactionId);
         }
     }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("TransactionRecordsList.aspx");
+    }
+
 }

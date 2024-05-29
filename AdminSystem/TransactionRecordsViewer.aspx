@@ -15,6 +15,7 @@
         <asp:Label ID="lblPaymentMethod" runat="server" Text="Payment Method:"></asp:Label><br />
         <asp:Label ID="lblStatus" runat="server" Text="Status:"></asp:Label><br />
         <asp:Button ID="btnEdit" runat="server" Text="Edit" OnClick="btnEdit_Click" />
+        <asp:Button ID="btnBack" runat="server" Text="Back to List" OnClick="btnBack_Click" />
     </form>
 </body>
 </html>
