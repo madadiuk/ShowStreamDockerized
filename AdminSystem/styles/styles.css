@@ -187,3 +187,6 @@ h2 {
     color: green;
     display: block;
 }
+.error-message {
+    color: red;
+}
