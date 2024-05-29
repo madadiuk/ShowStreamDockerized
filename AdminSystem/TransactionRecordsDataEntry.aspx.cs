@@ -43,13 +43,7 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        Page.Validate();
-        if (!Page.IsValid)
-        {
-            return;
-        }
-
-        int userId = Convert.ToInt32(Request.Form["usernameInput"]);
+        int userId = Convert.ToInt32(Request.Form["usernameInput"]); // Read the value from hidden input
         decimal amount = decimal.Parse(txtAmount.Text);
         DateTime transactionDate = DateTime.Parse(txtTransactionDate.Text);
         string paymentMethod = ddlPaymentMethod.SelectedValue;
@@ -59,7 +53,10 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
         tm.AddTransaction(userId, amount, transactionDate, paymentMethod, status);
         lblMessage.Text = "Transaction saved successfully!";
 
+        // Clear the form fields
         ClearFormFields();
+
+        // Reload transactions
         LoadTransactions();
     }
 
@@ -86,28 +83,5 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
     protected void btnViewList_Click(object sender, EventArgs e)
     {
         Response.Redirect("TransactionRecordsList.aspx");
-    }
-    protected void ValidateTransactionDate(object source, ServerValidateEventArgs args)
-    {
-        DateTime transactionDate;
-        if (DateTime.TryParse(args.Value, out transactionDate))
-        {
-            if (transactionDate > DateTime.Now)
-            {
-                args.IsValid = false;
-            }
-        }
-        else
-        {
-            args.IsValid = false;
-        }
-    }
-
-    protected void ValidateUsername(object source, ServerValidateEventArgs args)
-    {
-        if (string.IsNullOrEmpty(Request.Form["usernameInput"]))
-        {
-            args.IsValid = false;
-        }
     }
 }

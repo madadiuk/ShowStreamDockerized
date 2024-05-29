@@ -15,7 +15,8 @@
     <link href="styles/styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-   <form id="form1" runat="server">
+    <form id="form1" runat="server">
+        <!-- Add ScriptManager here -->
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
         <div class="search-container">
@@ -23,38 +24,43 @@
             <button type="button" id="activateSearch" class="search-button">Find the User</button>
             <input type="hidden" id="usernameInput" name="usernameInput" class="search-input" />
             <div id="userNotification" class="user-notification" style="display:none;"></div>
-            <asp:CustomValidator ID="cvUsername" runat="server" ErrorMessage="Username is required." Display="Dynamic" CssClass="error-message" OnServerValidate="ValidateUsername"></asp:CustomValidator>
         </div>
 
-        <asp:Label ID="lblAmount" runat="server" Text="Amount:"></asp:Label>
-        <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="Amount is required." Display="Dynamic" CssClass="error-message" />
 
-        <asp:Label ID="lblTransactionDate" runat="server" Text="Transaction Date:"></asp:Label>
-        <asp:TextBox ID="txtTransactionDate" runat="server"></asp:TextBox>
-        <ajaxToolkit:CalendarExtender ID="ceTransactionDate" runat="server" TargetControlID="txtTransactionDate" Format="yyyy-MM-dd" />
-        <asp:CustomValidator ID="cvTransactionDate" runat="server" ErrorMessage="Transaction Date cannot be empty or in the future." Display="Dynamic" CssClass="error-message" OnServerValidate="ValidateTransactionDate"></asp:CustomValidator>
+        
+            <asp:Label ID="lblAmount" runat="server" Text="Amount:"></asp:Label>
+            <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="Amount is required." Display="Dynamic" />
+            
+            <asp:Label ID="lblTransactionDate" runat="server" Text="Transaction Date:"></asp:Label>
+            <asp:TextBox ID="txtTransactionDate" runat="server"></asp:TextBox>
+            <ajaxToolkit:CalendarExtender ID="ceTransactionDate" runat="server" TargetControlID="txtTransactionDate" Format="yyyy-MM-dd" />
+            
+            <asp:Label ID="lblPaymentMethod" runat="server" Text="Payment Method:"></asp:Label>
+            <asp:DropDownList ID="ddlPaymentMethod" runat="server">
 
-        <asp:Label ID="lblPaymentMethod" runat="server" Text="Payment Method:"></asp:Label>
-        <asp:DropDownList ID="ddlPaymentMethod" runat="server"></asp:DropDownList>
-
-        <asp:Label ID="lblStatus" runat="server" Text="Status:"></asp:Label>
-        <asp:DropDownList ID="ddlStatus" runat="server"></asp:DropDownList>
-
-        <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
+            </asp:DropDownList>
+            
+            <asp:Label ID="lblStatus" runat="server" Text="Status:"></asp:Label>
+            <asp:DropDownList ID="ddlStatus" runat="server">
+                
+            </asp:DropDownList>
+            
+            <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
         <asp:Button ID="btnViewList" runat="server" Text="View Transaction List" OnClick="btnViewList_Click" CausesValidation="false" /><br />
-        <asp:Label ID="lblMessage" runat="server"></asp:Label>
-
-        <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False" AllowPaging="True" PageSize="10" OnPageIndexChanging="gvTransactions_PageIndexChanging">
-            <Columns>
-                <asp:BoundField DataField="TransactionID" HeaderText="Transaction ID" />
-                <asp:BoundField DataField="Username" HeaderText="Username" />
-                <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="£{0:N2}" HtmlEncode="False" />
-                <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date" DataFormatString="{0:d}" />
-                <asp:BoundField DataField="PaymentMethod" HeaderText="Payment Method" />
-                <asp:BoundField DataField="Status" HeaderText="Status" />
-            </Columns>
-        </asp:GridView>
+            <asp:Label ID="lblMessage" runat="server"></asp:Label>
+            
+            <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False" AllowPaging="True" PageSize="10" OnPageIndexChanging="gvTransactions_PageIndexChanging">
+                <Columns>
+                    <asp:BoundField DataField="TransactionID" HeaderText="Transaction ID" />
+                    <asp:BoundField DataField="Username" HeaderText="Username" />
+                    <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="£{0:N2}" HtmlEncode="False" />
+                    <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date" DataFormatString="{0:d}" />
+                    <asp:BoundField DataField="PaymentMethod" HeaderText="Payment Method" />
+                    <asp:BoundField DataField="Status" HeaderText="Status" />
+                </Columns>
+            </asp:GridView>
+        
     </form>
     <script>
         $(document).ready(function () {
