@@ -223,5 +223,17 @@ public class TransactionManager
 
         return error;
     }
+    public string ValidatePaymentMethod(string paymentMethod)
+    {
+        string error = "";
+        List<string> validPaymentMethods = GetPaymentMethods();
+
+        if (!validPaymentMethods.Contains(paymentMethod))
+        {
+            error = "Invalid payment method.";
+        }
+
+        return error;
+    }
 
 }
