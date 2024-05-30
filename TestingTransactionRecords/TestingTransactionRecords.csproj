@@ -65,6 +65,7 @@
     <Compile Include="TransactionManagerTests.cs" />
     <Compile Include="TransactionPaymentMethodDetailsValidationTests.cs" />
     <Compile Include="TransactionPaymentMethodValidationTests.cs" />
+    <Compile Include="TransactionStatusValidationTests.cs" />
     <Compile Include="UITests.cs" />
   </ItemGroup>
   <ItemGroup>

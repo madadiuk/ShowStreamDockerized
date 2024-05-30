@@ -250,5 +250,21 @@ public class TransactionManager
 
         return error;
     }
+    public string ValidateStatus(string status)
+    {
+        string error = "";
+        List<string> validStatuses = GetStatuses();
+
+        if (string.IsNullOrEmpty(status))
+        {
+            error = "Status cannot be empty.";
+        }
+        else if (!validStatuses.Contains(status))
+        {
+            error = "Invalid status.";
+        }
+
+        return error;
+    }
 
 }
