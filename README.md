@@ -1150,6 +1150,7 @@ END
 ![ShowStream ERD diagram (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/65ffd793-bef9-43b2-aad5-fcb1c8b4ecda)
 
 # 1.1	Team Class Diagram 
+![Transaction use case diagram](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/97b6fc8f-7f2f-46f6-a207-6cf4d36034b4)
 
 
 
