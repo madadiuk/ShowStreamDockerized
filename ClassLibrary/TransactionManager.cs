@@ -235,5 +235,20 @@ public class TransactionManager
 
         return error;
     }
+    public string ValidatePaymentMethodDetails(string paymentMethodDetails)
+    {
+        string error = "";
+
+        if (string.IsNullOrEmpty(paymentMethodDetails))
+        {
+            error = "Payment method details cannot be empty.";
+        }
+        else if (paymentMethodDetails.Length > 255)
+        {
+            error = "Payment method details cannot exceed 255 characters.";
+        }
+
+        return error;
+    }
 
 }
