@@ -60,9 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionAmountValidationTests.cs" />
+    <Compile Include="TransactionDateValidationTests.cs" />
     <Compile Include="TransactionManagerTests.cs" />
     <Compile Include="UITests.cs" />
-    <Compile Include="UserManagementTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

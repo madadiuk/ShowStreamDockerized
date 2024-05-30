@@ -191,5 +191,37 @@ public class TransactionManager
         results.Tables.Add(connection.DataTable);
         return results;
     }
+    public string ValidateTransactionDate(DateTime transactionDate)
+    {
+        string error = "";
+
+        if (transactionDate < DateTime.Now.Date)
+        {
+            error = "Transaction date cannot be in the past.";
+        }
+        else if (transactionDate > DateTime.Now.Date.AddYears(1))
+        {
+            error = "Transaction date cannot be more than one year in the future.";
+        }
+
+        return error;
+    }
+
+    public string ValidateTransactionDate(string transactionDate)
+    {
+        string error = "";
+        DateTime dateTemp;
+
+        if (!DateTime.TryParse(transactionDate, out dateTemp))
+        {
+            error = "Transaction date is not a valid date.";
+        }
+        else
+        {
+            error = ValidateTransactionDate(dateTemp);
+        }
+
+        return error;
+    }
 
 }
