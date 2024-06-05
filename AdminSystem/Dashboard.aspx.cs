@@ -1,3 +1,4 @@
+using ClassLibrary;
 using System;
 using System.Web.UI;
 
@@ -7,10 +8,11 @@ public partial class Dashboard : Page
     {
         if (!IsPostBack)
         {
-            if (Session["Username"] != null && Session["Role"] != null)
+            if (Session["User"] != null)
             {
-                lblUsername.Text = Session["Username"].ToString();
-                lblRole.Text = Session["Role"].ToString();
+                User user = (User)Session["User"];
+                lblUsername.Text = user.Username;
+                lblRole.Text = user.Role;
             }
             else
             {
@@ -21,7 +23,7 @@ public partial class Dashboard : Page
 
     protected void btnLogout_Click(object sender, EventArgs e)
     {
-        Session.Clear();
+        Session.Abandon();
         Response.Redirect("Login.aspx");
     }
 }

@@ -1,38 +1,34 @@
+using ClassLibrary;
 using System;
-using System.Data.SqlClient;
-using System.Configuration;
+using System.Web.UI;
 
-public partial class Login : System.Web.UI.Page
+public partial class Login : Page
 {
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            // Any initialization if needed
+        }
+    }
+
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         string username = txtUsername.Text;
         string password = txtPassword.Text;
+        UserManager userManager = new UserManager();
+        User authenticatedUser; // Declare the variable here
 
-        string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
-
-        using (SqlConnection conn = new SqlConnection(connectionString))
+        if (userManager.AuthenticateUser(username, password, out authenticatedUser))
         {
-            SqlCommand cmd = new SqlCommand("spLoginUser", conn);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@Username", username);
-            cmd.Parameters.AddWithValue("@Password", password);
-
-            conn.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            if (reader.Read())
-            {
-                Session["UserID"] = reader["UserID"];
-                Session["Username"] = reader["Username"];
-                Session["Role"] = reader["Role"];
-                Response.Redirect("Dashboard.aspx"); // Redirect to your dashboard or main page
-            }
-            else
-            {
-                lblMessage.Text = "Invalid username or password.";
-            }
+            Session["UserID"] = authenticatedUser.UserID;
+            Session["Username"] = authenticatedUser.Username;
+            Session["Role"] = authenticatedUser.Role;
+            Response.Redirect("Dashboard.aspx");
+        }
+        else
+        {
+            lblMessage.Text = "Invalid username or password.";
         }
     }
 }

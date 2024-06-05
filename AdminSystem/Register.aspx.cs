@@ -1,8 +1,8 @@
+using ClassLibrary;
 using System;
-using System.Data.SqlClient;
-using System.Configuration;
+using System.Web.UI;
 
-public partial class Register : System.Web.UI.Page
+public partial class Register : Page
 {
     protected void btnRegister_Click(object sender, EventArgs e)
     {
@@ -11,22 +11,23 @@ public partial class Register : System.Web.UI.Page
         string password = txtPassword.Text;
         string role = ddlRole.SelectedValue;
 
-        string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
-
-        using (SqlConnection conn = new SqlConnection(connectionString))
+        UserManager userManager = new UserManager();
+        User user = new User
         {
-            SqlCommand cmd = new SqlCommand("spRegisterUser", conn);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            Username = username,
+            Email = email,
+            Password = password,
+            Role = role
+        };
 
-            cmd.Parameters.AddWithValue("@Username", username);
-            cmd.Parameters.AddWithValue("@Email", email);
-            cmd.Parameters.AddWithValue("@Password", password);
-            cmd.Parameters.AddWithValue("@Role", role);
-
-            conn.Open();
-            cmd.ExecuteNonQuery();
-
-            lblMessage.Text = "Registration successful!";
+        try
+        {
+            userManager.AddUser(user);
+            lblMessage.Text = "User registered successfully!";
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = ex.Message;
         }
     }
 }

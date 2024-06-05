@@ -4,19 +4,31 @@ using System.Web.UI;
 
 public partial class UserAccountsViewer : Page
 {
-    private UserManager userManager;
+    private UserManager userManager = new UserManager();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            userManager = new UserManager();
-            int userId = Convert.ToInt32(Request.QueryString["UserID"]);
-            User user = userManager.GetUserById(userId);
-            lblUserIDValue.Text = user.UserID.ToString();
-            lblUsernameValue.Text = user.Username;
-            lblEmailValue.Text = user.Email;
-            lblRoleValue.Text = user.Role;
+            int userId;
+            if (int.TryParse(Request.QueryString["UserID"], out userId))
+            {
+                User user = userManager.GetUserById(userId);
+                if (user != null)
+                {
+                    lblUserID.Text = user.UserID.ToString();
+                    lblUsername.Text = user.Username;
+                    lblEmail.Text = user.Email;
+                    lblRole.Text = user.Role;
+                }
+                else
+                {
+                    lblUserID.Text = "N/A";
+                    lblUsername.Text = "N/A";
+                    lblEmail.Text = "N/A";
+                    lblRole.Text = "N/A";
+                }
+            }
         }
     }
 
