@@ -11,6 +11,35 @@ public class TransactionManager
     {
         connection = new clsDataConnection(); // Assuming clsDataConnection handles your DB connections
     }
+    public DataTable GetTransactionStatistics()
+    {
+        connection.Execute("spGetTransactionStatistics");
+        return connection.DataTable;
+    }
+    public DataTable GetFilteredTransactions(string paymentMethod, string status, DateTime? dateFrom, DateTime? dateTo)
+    {
+        if (!string.IsNullOrEmpty(paymentMethod))
+            connection.AddParameter("@PaymentMethod", paymentMethod);
+        if (!string.IsNullOrEmpty(status))
+            connection.AddParameter("@Status", status);
+        if (dateFrom.HasValue)
+            connection.AddParameter("@DateFrom", dateFrom.Value);
+        if (dateTo.HasValue)
+            connection.AddParameter("@DateTo", dateTo.Value);
+
+        connection.Execute("spGetFilteredTransactions");
+        return connection.DataTable;
+    }
+
+
+    public DataTable GetTransactionById(int transactionId)
+    {
+        connection.AddParameter("@TransactionID", transactionId);
+        connection.Execute("spGetTransactionById");
+        return connection.DataTable;
+    }
+
+
     public List<User> SearchUsers(string searchText)
     {
         List<User> users = new List<User>();
@@ -53,15 +82,19 @@ public class TransactionManager
         return connection.DataTable;
     }
 
-    public void UpdateTransaction(int transactionId, decimal amount, DateTime transactionDate, string paymentMethod, string status)
+    public void UpdateTransaction(int transactionId, decimal amount, DateTime transactionDate, string status, string paymentMethod, int userId)
     {
         connection.AddParameter("@TransactionID", transactionId);
         connection.AddParameter("@Amount", amount);
         connection.AddParameter("@TransactionDate", transactionDate);
-        connection.AddParameter("@PaymentMethod", paymentMethod);
         connection.AddParameter("@Status", status);
+        connection.AddParameter("@PaymentMethod", paymentMethod); // Add this line
+        connection.AddParameter("@UserID", userId); // Add this line
         connection.Execute("spUpdateTransaction");
     }
+
+
+
     public List<string> GetPaymentMethods()
     {
         return new List<string> { "PayPal", "Debit Card", "Credit Card" };
@@ -157,6 +190,81 @@ public class TransactionManager
         DataSet results = new DataSet();
         results.Tables.Add(connection.DataTable);
         return results;
+    }
+    public string ValidateTransactionDate(DateTime transactionDate)
+    {
+        string error = "";
+
+        if (transactionDate < DateTime.Now.Date)
+        {
+            error = "Transaction date cannot be in the past.";
+        }
+        else if (transactionDate > DateTime.Now.Date.AddYears(1))
+        {
+            error = "Transaction date cannot be more than one year in the future.";
+        }
+
+        return error;
+    }
+
+    public string ValidateTransactionDate(string transactionDate)
+    {
+        string error = "";
+        DateTime dateTemp;
+
+        if (!DateTime.TryParse(transactionDate, out dateTemp))
+        {
+            error = "Transaction date is not a valid date.";
+        }
+        else
+        {
+            error = ValidateTransactionDate(dateTemp);
+        }
+
+        return error;
+    }
+    public string ValidatePaymentMethod(string paymentMethod)
+    {
+        string error = "";
+        List<string> validPaymentMethods = GetPaymentMethods();
+
+        if (!validPaymentMethods.Contains(paymentMethod))
+        {
+            error = "Invalid payment method.";
+        }
+
+        return error;
+    }
+    public string ValidatePaymentMethodDetails(string paymentMethodDetails)
+    {
+        string error = "";
+
+        if (string.IsNullOrEmpty(paymentMethodDetails))
+        {
+            error = "Payment method details cannot be empty.";
+        }
+        else if (paymentMethodDetails.Length > 255)
+        {
+            error = "Payment method details cannot exceed 255 characters.";
+        }
+
+        return error;
+    }
+    public string ValidateStatus(string status)
+    {
+        string error = "";
+        List<string> validStatuses = GetStatuses();
+
+        if (string.IsNullOrEmpty(status))
+        {
+            error = "Status cannot be empty.";
+        }
+        else if (!validStatuses.Contains(status))
+        {
+            error = "Invalid status.";
+        }
+
+        return error;
     }
 
 }

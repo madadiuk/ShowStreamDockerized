@@ -47,6 +47,15 @@ p2731259
 # Password:
 42714271427142714271
 
+## additional component:
+
+# You can install Selenium WebDriver and ChromeDriver using NuGet Package Manager Console:
+
+
+Install-Package Selenium.WebDriver
+
+Install-Package Selenium.WebDriver.ChromeDriver
+
 
 ## datebase code
 
@@ -978,6 +987,68 @@ BEGIN
     FROM tblGenres
 END
 
+## New spGetTransactionById added 26/05/2024
+
+CREATE PROCEDURE [dbo].[spGetTransactionById]
+    @TransactionID INT
+AS
+BEGIN
+    SELECT 
+        t.TransactionID, 
+        u.Username, 
+        t.Amount, 
+        t.TransactionDate, 
+        t.PaymentMethod, 
+        t.Status
+    FROM 
+        tblTransactions t
+    JOIN 
+        tblUsers u ON t.UserID = u.UserID
+    WHERE 
+        t.TransactionID = @TransactionID
+END
+## New spGetFilteredTransactions added 26/05/2024
+
+CREATE PROCEDURE spGetFilteredTransactions
+    @PaymentMethod NVARCHAR(50) = NULL,
+    @Status NVARCHAR(50) = NULL,
+    @DateFrom DATETIME = NULL,
+    @DateTo DATETIME = NULL
+AS
+BEGIN
+    SELECT 
+        t.TransactionID, 
+        u.Username, 
+        t.Amount, 
+        t.TransactionDate, 
+        t.PaymentMethod, 
+        t.Status
+    FROM 
+        tblTransactions t
+    INNER JOIN 
+        tblUsers u ON t.UserID = u.UserID
+    WHERE 
+        (@PaymentMethod IS NULL OR t.PaymentMethod = @PaymentMethod)
+        AND (@Status IS NULL OR t.Status = @Status)
+        AND (@DateFrom IS NULL OR t.TransactionDate >= @DateFrom)
+        AND (@DateTo IS NULL OR t.TransactionDate <= @DateTo)
+    ORDER BY 
+        t.TransactionDate DESC
+END
+## New spGetTransactionStatistics added 26/05/2024
+
+CREATE PROCEDURE spGetTransactionStatistics
+AS
+BEGIN
+    SELECT 
+        COUNT(TransactionID) AS TotalTransactions,
+        SUM(Amount) AS TotalAmount,
+        AVG(Amount) AS AverageAmount,
+        COUNT(DISTINCT UserID) AS UniqueUsers
+    FROM 
+        tblTransactions
+END
+GO
 
 CREATE PROCEDURE spGetSeriesById
     @SeriesID INT
@@ -1077,6 +1148,10 @@ BEGIN
 END
 # Database ERD Diagram:
 ![ShowStream ERD diagram (1)](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/65ffd793-bef9-43b2-aad5-fcb1c8b4ecda)
+
+# 1.1	Team Class Diagram 
+![Transaction use case diagram](https://github.com/madadiuk/ShowStreamDockerized/assets/24778272/97b6fc8f-7f2f-46f6-a207-6cf4d36034b4)
+
 
 
 Updated ERD Description

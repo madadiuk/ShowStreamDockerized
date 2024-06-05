@@ -80,4 +80,8 @@ public partial class TransactionRecordsDataEntry : System.Web.UI.Page
         gvTransactions.PageIndex = e.NewPageIndex;
         LoadTransactions();
     }
+    protected void btnViewList_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("TransactionRecordsList.aspx");
+    }
 }

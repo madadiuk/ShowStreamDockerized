@@ -676,13 +676,34 @@ END
 GO
 
 
+
+CREATE PROCEDURE [dbo].[spGetTransactionById]
+    @TransactionID INT
+AS
+BEGIN
+    SELECT 
+        t.TransactionID, 
+        u.Username, 
+        t.Amount, 
+        t.TransactionDate, 
+        t.PaymentMethod, 
+        t.Status
+    FROM 
+        tblTransactions t
+    JOIN 
+        tblUsers u ON t.UserID = u.UserID
+    WHERE 
+        t.TransactionID = @TransactionID
+END
+GO
+
 CREATE PROCEDURE spGetAllGenres
 AS
 BEGIN
     SELECT GenreID, Name, Description
     FROM tblGenres
 END
-...........
+GO
 
 
 CREATE PROCEDURE spGetSeriesById
@@ -693,6 +714,7 @@ BEGIN
     FROM tblSeries
     WHERE SeriesID = @SeriesID
 END
+GO
 
 CREATE PROCEDURE spFilterEpisodes
     @SeriesID INT = NULL,
@@ -708,7 +730,7 @@ BEGIN
       AND (@EpisodeNumber IS NULL OR EpisodeNumber = @EpisodeNumber)
       AND (@ReleaseDate IS NULL OR ReleaseDate = @ReleaseDate)
 END
-
+GO
 
 CREATE PROCEDURE spFilterVideoFilesByQuality
     @VideoQuality VARCHAR(50)
@@ -725,18 +747,48 @@ BEGIN
     FROM tblVideoFiles
     WHERE VideoQuality = @VideoQuality;
 END
-
-
-CREATE PROCEDURE spCheckUserExists
-    @Username NVARCHAR(50)
-AS
-BEGIN
-    SELECT 1
-    FROM tblUsers
-    WHERE Username = @Username
-END
 GO
 
+CREATE PROCEDURE spCheckUserExists
+    @Username VARCHAR(255)
+AS
+BEGIN
+    SELECT COUNT(*) AS UserCount
+    FROM tblUsers
+    WHERE Username = @Username;
+
+END
+
+GO
+
+
+CREATE PROCEDURE spGetFilteredTransactions
+    @PaymentMethod NVARCHAR(50) = NULL,
+    @Status NVARCHAR(50) = NULL,
+    @DateFrom DATETIME = NULL,
+    @DateTo DATETIME = NULL
+AS
+BEGIN
+    SELECT 
+        t.TransactionID, 
+        u.Username, 
+        t.Amount, 
+        t.TransactionDate, 
+        t.PaymentMethod, 
+        t.Status
+    FROM 
+        tblTransactions t
+    INNER JOIN 
+        tblUsers u ON t.UserID = u.UserID
+    WHERE 
+        (@PaymentMethod IS NULL OR t.PaymentMethod = @PaymentMethod)
+        AND (@Status IS NULL OR t.Status = @Status)
+        AND (@DateFrom IS NULL OR t.TransactionDate >= @DateFrom)
+        AND (@DateTo IS NULL OR t.TransactionDate <= @DateTo)
+    ORDER BY 
+        t.TransactionDate DESC
+END
+GO
 
 CREATE PROCEDURE spGetUserById
     @UserID INT
@@ -781,3 +833,4 @@ BEGIN
     WHERE UserID = @UserID
 END
 GO
+

@@ -1,0 +1,27 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.main-content {
+    display: inline-block;
+    text-align: left;
+}
+
+    .main-content button {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        margin: 10px 0;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+.btn-main-menu {
+    background-color: #555;
+    color: white;
+}
