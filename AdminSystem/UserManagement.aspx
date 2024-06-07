@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UserManagement.aspx.cs" Inherits="UserManagement" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UserManagement.aspx.cs" Inherits="AdminSystem.UserManagement" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -58,33 +58,9 @@
                     <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" DataKeyNames="UserID" OnRowEditing="gvUsers_RowEditing" OnRowDeleting="gvUsers_RowDeleting" OnRowUpdating="gvUsers_RowUpdating" OnRowCancelingEdit="gvUsers_RowCancelingEdit">
                         <Columns>
                             <asp:BoundField DataField="UserID" HeaderText="User ID" />
-                            <asp:TemplateField HeaderText="Username">
-                                <ItemTemplate>
-                                    <%# Eval("Username") %>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="txtUsername" runat="server" Text='<%# Bind("Username") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Email">
-                                <ItemTemplate>
-                                    <%# Eval("Email") %>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="txtEmail" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Role">
-                                <ItemTemplate>
-                                    <%# Eval("Role") %>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:DropDownList ID="ddlRole" runat="server" SelectedValue='<%# Bind("Role") %>'>
-                                        <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
-                                        <asp:ListItem Text="User" Value="User"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
+                            <asp:BoundField DataField="Username" HeaderText="Username" />
+                            <asp:BoundField DataField="Email" HeaderText="Email" />
+                            <asp:BoundField DataField="Role" HeaderText="Role" />
                             <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
                         </Columns>
                     </asp:GridView>
