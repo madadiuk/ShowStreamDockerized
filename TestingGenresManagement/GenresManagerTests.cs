@@ -199,26 +199,26 @@ namespace TestingGenresManagement
             Assert.AreEqual(string.Empty, error);
         }
 
-       // [TestMethod]
-       // public void DeleteGenre_WithMovies_ShouldFail()
-       // {
-       //    genresManager.AddGenre("Action", "Action Movies");
-       //     int genreID = GetLastInsertedGenreID();
+       /* [TestMethod]
+          public void DeleteGenre_WithMovies_ShouldFail()
+        {
+           genresManager.AddGenre("Action", "Action Movies");
+           int genreID = GetLastInsertedGenreID();
 
-            // Simulate adding a movie with this genre
-      //      clsDataConnection addMovieDb = new clsDataConnection();
-       //     addMovieDb.AddParameter("@Title", "Sample Movie");
-       //     addMovieDb.AddParameter("@Description", "Sample Description");
-       //     addMovieDb.AddParameter("@GenreID", genreID);
-      //      addMovieDb.AddParameter("@Director", "Sample Director");
-      //      addMovieDb.AddParameter("@ReleaseDate", DateTime.Now);
-     //       addMovieDb.AddParameter("@Duration", 120);
-     //       addMovieDb.Execute("spAddMovie");
-//
-    //        string error = genresManager.DeleteGenre(genreID);
-    //        Assert.AreEqual("Cannot delete genre. There are movies associated with this genre. Delete the movies first.", error);
-        //}
+            Simulate adding a movie with this genre
+            clsDataConnection addMovieDb = new clsDataConnection();
+            addMovieDb.AddParameter("@Title", "Sample Movie");
+            addMovieDb.AddParameter("@Description", "Sample Description");
+            addMovieDb.AddParameter("@GenreID", genreID);
+            addMovieDb.AddParameter("@Director", "Sample Director");
+            addMovieDb.AddParameter("@ReleaseDate", DateTime.Now);
+            addMovieDb.AddParameter("@Duration", 120);
+            addMovieDb.Execute("spAddMovie");
 
+            string error = genresManager.DeleteGenre(genreID);
+            Assert.AreEqual("Cannot delete genre. There are movies associated with this genre. Delete the movies first.", error);
+        }
+       */
         #endregion
 
         private int GetLastInsertedGenreID()

@@ -28,6 +28,6 @@ public partial class TeamMainMenu : System.Web.UI.Page
     }
     protected void btnGoToMoviesManagementDataEntry_Click(object sender, EventArgs e)
     {
-        Response.Redirect("MoviesManagementDataEntry.aspx");
+        Response.Redirect("ViewMovies.aspx");
     }
 }
