@@ -825,9 +825,11 @@ CREATE PROCEDURE spAddPasswordResetToken
     @ResetToken NVARCHAR(255)
 AS
 BEGIN
-    INSERT INTO tblPasswordResets (UserID, ResetToken)
-    VALUES (@UserID, @ResetToken)
+    DECLARE @ResetTokens TABLE (UserID INT, ResetToken NVARCHAR(255), ExpiryDate DATETIME);
+    INSERT INTO @ResetTokens (UserID, ResetToken, ExpiryDate)
+    VALUES (@UserID, @ResetToken, DATEADD(hour, 1, GETDATE()));
 END
+
 GO
 
 
@@ -835,10 +837,15 @@ CREATE PROCEDURE spGetUserIDByResetToken
     @ResetToken NVARCHAR(255)
 AS
 BEGIN
+    DECLARE @ResetTokens TABLE (UserID INT, ResetToken NVARCHAR(255), ExpiryDate DATETIME);
+    INSERT INTO @ResetTokens (UserID, ResetToken, ExpiryDate)
+    SELECT UserID, @ResetToken, DATEADD(hour, 1, GETDATE());
+
     SELECT UserID
-    FROM tblPasswordResets
-    WHERE ResetToken = @ResetToken
+    FROM @ResetTokens
+    WHERE ResetToken = @ResetToken AND ExpiryDate > GETDATE();
 END
+
 GO
 
 
