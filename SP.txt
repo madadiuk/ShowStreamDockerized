@@ -685,13 +685,18 @@ GO
 
 
 CREATE PROCEDURE spSearchUsers
-    @SearchText NVARCHAR(100)
+    @Username NVARCHAR(50) = NULL,
+    @Email NVARCHAR(50) = NULL,
+    @Role NVARCHAR(50) = NULL
 AS
 BEGIN
-    SELECT UserID, Username
+    SELECT UserID, Username, Email, Role
     FROM tblUsers
-    WHERE Username LIKE '%' + @SearchText + '%'
+    WHERE (@Username IS NULL OR Username LIKE '%' + @Username + '%')
+      AND (@Email IS NULL OR Email LIKE '%' + @Email + '%')
+      AND (@Role IS NULL OR Role = @Role);
 END
+
 GO
 
 
