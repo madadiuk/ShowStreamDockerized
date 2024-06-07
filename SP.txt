@@ -841,4 +841,74 @@ BEGIN
     WHERE UserID = @UserID
 END
 GO
-
+-- Stored procedure to clean tblDownloads
+CREATE PROCEDURE spCleanTblDownloads
+AS
+BEGIN
+    DELETE FROM tblDownloads;
+    DBCC CHECKIDENT ('tblDownloads', RESEED, 0);
+END
+CREATE PROCEDURE spCleanAndReseedTblGenres
+AS
+BEGIN
+    DELETE FROM tblVideoFiles;
+    DELETE FROM tblDownloads;
+    DELETE FROM tblEpisodes;
+    DELETE FROM tblSeries;
+    DELETE FROM tblMovies;
+    DELETE FROM tblGenres;
+    DBCC CHECKIDENT ('tblGenres', RESEED, 0);
+    DBCC CHECKIDENT ('tblMovies', RESEED, 0);
+    DBCC CHECKIDENT ('tblSeries', RESEED, 0);
+    DBCC CHECKIDENT ('tblEpisodes', RESEED, 0);
+    DBCC CHECKIDENT ('tblDownloads', RESEED, 0);
+    DBCC CHECKIDENT ('tblVideoFiles', RESEED, 0);
+END
+-- Stored procedure to clean tblEpisodes
+CREATE PROCEDURE spCleanTblEpisodes
+AS
+BEGIN
+    DELETE FROM tblEpisodes;
+    DBCC CHECKIDENT ('tblEpisodes', RESEED, 0);
+END
+-- Stored procedure to clean tblGenres
+CREATE PROCEDURE spCleanTblGenres
+AS
+BEGIN
+    DELETE FROM tblGenres;
+    DBCC CHECKIDENT ('tblGenres', RESEED, 0);
+END
+-- Stored procedure to clean tblMovies
+CREATE PROCEDURE spCleanTblMovies
+AS
+BEGIN
+    DELETE FROM tblMovies;
+    DBCC CHECKIDENT ('tblMovies', RESEED, 0);
+END
+-- Stored procedure to clean tblSeries
+CREATE PROCEDURE spCleanTblSeries
+AS
+BEGIN
+    DELETE FROM tblSeries;
+    DBCC CHECKIDENT ('tblSeries', RESEED, 0);
+END
+-- Stored procedure to clean tblVideoFiles
+CREATE PROCEDURE spCleanTblVideoFiles
+AS
+BEGIN
+    DELETE FROM tblVideoFiles;
+    DBCC CHECKIDENT ('tblVideoFiles', RESEED, 0);
+END
+CREATE PROCEDURE spCanDeleteGenre
+    @GenreID INT
+AS
+BEGIN
+    SELECT COUNT(*) AS Count
+    FROM tblMovies
+    WHERE GenreID = @GenreID;
+END
+CREATE PROCEDURE spGetLastInsertedGenreID
+AS
+BEGIN
+    SELECT TOP 1 GenreID FROM tblGenres ORDER BY GenreID DESC;
+END
