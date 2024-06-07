@@ -15,16 +15,20 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE spAddUser 
-@Username VARCHAR(255), 
-@Email VARCHAR(255), 
-@Password VARCHAR(255), 
-@Role VARCHAR(50)
+CREATE PROCEDURE spAddUser
+    @Username NVARCHAR(50),
+    @Email NVARCHAR(50),
+    @Password NVARCHAR(255),
+    @Role NVARCHAR(50)
 AS
 BEGIN
-    INSERT INTO tblUsers (Username, Email, Password, Role) 
-    VALUES (@Username, @Email, @Password, @Role)
+    INSERT INTO tblUsers (Username, Email, Password, Role)
+    VALUES (@Username, @Email, @Password, @Role);
+
+    -- Return the number of rows affected
+    SELECT @@ROWCOUNT AS RowsAffected;
 END
+
 GO
 
 CREATE PROCEDURE spDeleteUser 
