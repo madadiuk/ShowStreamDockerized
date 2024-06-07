@@ -1,3 +1,10 @@
+CREATE PROCEDURE spDeleteAllUsers
+AS
+BEGIN
+    DELETE FROM Users;
+END
+GO
+
 CREATE PROCEDURE spGetUserByUsername
 @Username NVARCHAR(50)
 AS
@@ -6,7 +13,7 @@ BEGIN
     FROM tblUsers
     WHERE Username = @Username
 END
-
+GO
 
 CREATE PROCEDURE spAddUser 
 @Username VARCHAR(255), 
