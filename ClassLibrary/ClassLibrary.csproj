@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="clsDataConnection.cs" />
     <Compile Include="EpisodesManager.cs" />
+    <Compile Include="Genre.cs" />
+    <Compile Include="GenresCollection.cs" />
     <Compile Include="GenresManager.cs" />
     <Compile Include="MoviesManager.cs" />
     <Compile Include="PasswordHelper.cs" />
