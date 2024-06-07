@@ -3,26 +3,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Genres Management</title>
+    <title>Genres Management Data Entry</title>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <h2>Genres Management</h2>
-            <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red"></asp:Label>
+            <h2>Add New Genre</h2>
+            <label for="txtName">Name:</label>
+            <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
             <br />
-            <asp:GridView ID="gvGenres" runat="server" AutoGenerateColumns="False" DataKeyNames="GenreID" OnRowEditing="gvGenres_RowEditing" OnRowUpdating="gvGenres_RowUpdating" OnRowDeleting="gvGenres_RowDeleting">
-                <Columns>
-                    <asp:BoundField DataField="GenreID" HeaderText="ID" ReadOnly="True" />
-                    <asp:BoundField DataField="Name" HeaderText="Name" />
-                    <asp:BoundField DataField="Description" HeaderText="Description" />
-                    <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
-                </Columns>
-            </asp:GridView>
+            <label for="txtDescription">Description:</label>
+            <asp:TextBox ID="txtDescription" runat="server"></asp:TextBox>
             <br />
-            <asp:TextBox ID="txtName" runat="server" ToolTip="Name"></asp:TextBox>
-            <asp:TextBox ID="txtDescription" runat="server" ToolTip="Description"></asp:TextBox>
             <asp:Button ID="btnAddGenre" runat="server" Text="Add Genre" OnClick="btnAddGenre_Click" />
+            <br />
+            <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+            <br />
+            <asp:Button ID="btnBack" runat="server" Text="Back" OnClick="btnBack_Click" />
         </div>
     </form>
 </body>

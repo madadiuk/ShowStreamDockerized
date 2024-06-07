@@ -19,7 +19,7 @@ public partial class TeamMainMenu : System.Web.UI.Page
 
     protected void btnGoToGenresManagement_Click(object sender, EventArgs e)
     {
-        Response.Redirect("GenresManagementDataEntry.aspx");
+        Response.Redirect("ViewGenres.aspx");
     }
 
     protected void btnGoToUserManagement_Click(object sender, EventArgs e)

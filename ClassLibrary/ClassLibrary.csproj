@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="clsDataConnection.cs" />
     <Compile Include="EpisodesManager.cs" />
+    <Compile Include="Genre.cs" />
+    <Compile Include="GenresCollection.cs" />
     <Compile Include="GenresManager.cs" />
     <Compile Include="MoviesManager.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
