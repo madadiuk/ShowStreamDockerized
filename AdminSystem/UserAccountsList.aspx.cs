@@ -1,8 +1,9 @@
 ﻿using ClassLibrary;
 using System;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class UserAccountsList : System.Web.UI.Page
+public partial class UserAccountsList : Page
 {
     private UserManager userManager = new UserManager();
 
@@ -16,41 +17,84 @@ public partial class UserAccountsList : System.Web.UI.Page
 
     private void BindUserGrid()
     {
-        gvUsers.DataSource = userManager.GetAllUsers();
-        gvUsers.DataBind();
+        try
+        {
+            gvUsers.DataSource = userManager.GetAllUsers();
+            gvUsers.DataBind();
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = "Error binding user grid: " + ex.Message;
+        }
     }
 
     protected void gvUsers_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        gvUsers.EditIndex = e.NewEditIndex;
-        BindUserGrid();
+        try
+        {
+            gvUsers.EditIndex = e.NewEditIndex;
+            BindUserGrid();
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = "Error editing user: " + ex.Message;
+        }
     }
 
     protected void gvUsers_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        GridViewRow row = gvUsers.Rows[e.RowIndex];
-        int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Values[0]);
-        string username = ((TextBox)row.FindControl("txtUsername")).Text;
-        string email = ((TextBox)row.FindControl("txtEmail")).Text;
-        string role = ((DropDownList)row.FindControl("ddlRole")).SelectedValue;
-
-        User user = new User
+        try
         {
-            UserID = userId,
-            Username = username,
-            Email = email,
-            Role = role
-        };
+            GridViewRow row = gvUsers.Rows[e.RowIndex];
+            int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
+            string username = (row.FindControl("txtUsername") as TextBox).Text;
+            string email = (row.FindControl("txtEmail") as TextBox).Text;
+            string role = (row.FindControl("ddlRole") as DropDownList).SelectedValue;
 
-        userManager.UpdateUser(user);
-        gvUsers.EditIndex = -1;
-        BindUserGrid();
+            User user = new User
+            {
+                UserID = userId,
+                Username = username,
+                Email = email,
+                Role = role
+            };
+
+            userManager.UpdateUser(user);
+            gvUsers.EditIndex = -1;
+            BindUserGrid();
+            lblMessage.Text = "User updated successfully.";
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = "Error updating user: " + ex.Message;
+        }
+    }
+
+    protected void gvUsers_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+        try
+        {
+            gvUsers.EditIndex = -1;
+            BindUserGrid();
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = "Error canceling edit: " + ex.Message;
+        }
     }
 
     protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Values[0]);
-        userManager.DeleteUser(userId);
-        BindUserGrid();
+        try
+        {
+            int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
+            userManager.DeleteUser(userId);
+            BindUserGrid();
+            lblMessage.Text = "User deleted successfully.";
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = "Error deleting user: " + ex.Message;
+        }
     }
 }

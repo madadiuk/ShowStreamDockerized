@@ -4,67 +4,79 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>User Management</title>
-    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
-<body>
-    <form id="form1" runat="server">
-        <div>
-            <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
-            <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" 
-                OnRowEditing="gvUsers_RowEditing" OnRowDeleting="gvUsers_RowDeleting" 
-                OnRowUpdating="gvUsers_RowUpdating" OnRowCancelingEdit="gvUsers_RowCancelingEdit" DataKeyNames="UserID">
-                <Columns>
-                    <asp:TemplateField HeaderText="User ID">
-                        <ItemTemplate>
-                            <asp:Label ID="lblUserID" runat="server" Text='<%# Bind("UserID") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Username">
-                        <ItemTemplate>
-                            <asp:Label ID="lblUsername" runat="server" Text='<%# Bind("Username") %>'></asp:Label>
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:TextBox ID="txtUsername" runat="server" Text='<%# Bind("Username") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Email">
-                        <ItemTemplate>
-                            <asp:Label ID="lblEmail" runat="server" Text='<%# Bind("Email") %>'></asp:Label>
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:TextBox ID="txtEmail" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Role">
-                        <ItemTemplate>
-                            <asp:Label ID="lblRole" runat="server" Text='<%# Bind("Role") %>'></asp:Label>
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:DropDownList ID="ddlRole" runat="server">
-                                <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
-                                <asp:ListItem Text="User" Value="User"></asp:ListItem>
-                            </asp:DropDownList>
-                        </EditItemTemplate>
-                    </asp:TemplateField>
-                    <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
-                </Columns>
-            </asp:GridView>
+<body class="usermanagement">
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>User Management</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="UserAccountsList.aspx" class="btn">User Accounts List</a></li>
+                    <li><a href="UserManagement.aspx" class="btn">User Management</a></li>
+                </ul>
+            </nav>
         </div>
-        <div>
-            <h2>Add New User</h2>
-            <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
-            <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
-            <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
-            <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
-            <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
-            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
-            <asp:Label ID="lblRole" runat="server" Text="Role:"></asp:Label>
-            <asp:DropDownList ID="ddlRole" runat="server">
-                <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
-                <asp:ListItem Text="User" Value="User"></asp:ListItem>
-            </asp:DropDownList>
-            <asp:Button ID="btnAddUser" runat="server" Text="Add User" OnClick="btnAddUser_Click" />
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <form id="form1" runat="server">
+                <div class="form-group">
+                    <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
+                    <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
+                    <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="lblRole" runat="server" Text="Role:"></asp:Label>
+                    <asp:DropDownList ID="ddlRole" runat="server">
+                        <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
+                        <asp:ListItem Text="User" Value="User"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="form-group">
+                    <asp:Button ID="btnAddUser" runat="server" Text="Add User" OnClick="btnAddUser_Click" />
+                    <asp:Button ID="btnEditUser" runat="server" Text="Edit User" OnClick="btnEditUser_Click" />
+                    <asp:Label ID="lblMessage" runat="server" CssClass="message-label"></asp:Label>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="lblUserID" runat="server" Text="User ID:"></asp:Label>
+                    <asp:TextBox ID="txtUserID" runat="server"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" DataKeyNames="UserID"
+                        OnRowEditing="gvUsers_RowEditing" OnRowUpdating="gvUsers_RowUpdating" OnRowCancelingEdit="gvUsers_RowCancelingEdit"
+                        OnRowDeleting="gvUsers_RowDeleting">
+                        <Columns>
+                            <asp:BoundField DataField="UserID" HeaderText="User ID" ReadOnly="True" />
+                            <asp:BoundField DataField="Username" HeaderText="Username" />
+                            <asp:BoundField DataField="Email" HeaderText="Email" />
+                            <asp:TemplateField HeaderText="Role">
+                                <EditItemTemplate>
+                                    <asp:DropDownList ID="ddlRoleEdit" runat="server">
+                                        <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
+                                        <asp:ListItem Text="User" Value="User"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRole" runat="server" Text='<%# Eval("Role") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </body>
 </html>

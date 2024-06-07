@@ -1,15 +1,13 @@
 ﻿using ClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System;
 
 public class UserManager
 {
-    private clsDataConnection db;
-
     public void AddUser(User user)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.AddParameter("@Username", user.Username);
         db.AddParameter("@Email", user.Email);
         db.AddParameter("@Password", PasswordHelper.HashPassword(user.Password));
@@ -19,14 +17,14 @@ public class UserManager
 
     public void DeleteUser(int userId)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.AddParameter("@UserID", userId);
         db.Execute("spDeleteUser");
     }
 
     public void UpdateUser(User user)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.AddParameter("@UserID", user.UserID);
         db.AddParameter("@Username", user.Username);
         db.AddParameter("@Email", user.Email);
@@ -37,7 +35,7 @@ public class UserManager
 
     public List<User> GetAllUsers()
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.Execute("spGetAllUsers");
         List<User> users = new List<User>();
 
@@ -56,7 +54,7 @@ public class UserManager
 
     public User GetUserById(int userId)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.AddParameter("@UserID", userId);
         db.Execute("spGetUserById");
         if (db.Count == 1)
@@ -73,9 +71,29 @@ public class UserManager
         return null;
     }
 
+    public User GetUserByUsername(string username)
+    {
+        clsDataConnection db = new clsDataConnection();
+        db.AddParameter("@Username", username);
+        db.Execute("spGetUserByUsername");
+        if (db.Count == 1)
+        {
+            DataRow row = db.DataTable.Rows[0];
+            return new User
+            {
+                UserID = Convert.ToInt32(row["UserID"]),
+                Username = row["Username"].ToString(),
+                Email = row["Email"].ToString(),
+                Password = row["Password"].ToString(),
+                Role = row["Role"].ToString()
+            };
+        }
+        return null;
+    }
+
     public List<User> FilterUsersByRole(string role)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.AddParameter("@Role", role);
         db.Execute("spFilterUsersByRole");
         List<User> users = new List<User>();
@@ -93,9 +111,35 @@ public class UserManager
         return users;
     }
 
+    public List<User> SearchUsers(string username = null, string email = null, string role = null)
+    {
+        clsDataConnection db = new clsDataConnection();
+        if (!string.IsNullOrEmpty(username))
+            db.AddParameter("@Username", username);
+        if (!string.IsNullOrEmpty(email))
+            db.AddParameter("@Email", email);
+        if (!string.IsNullOrEmpty(role))
+            db.AddParameter("@Role", role);
+
+        db.Execute("spSearchUsers");
+
+        List<User> users = new List<User>();
+        foreach (DataRow row in db.DataTable.Rows)
+        {
+            users.Add(new User
+            {
+                UserID = Convert.ToInt32(row["UserID"]),
+                Username = row["Username"].ToString(),
+                Email = row["Email"].ToString(),
+                Role = row["Role"].ToString()
+            });
+        }
+        return users;
+    }
+
     public string GeneratePasswordResetToken(int userId)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         string token = Guid.NewGuid().ToString();
         db.AddParameter("@UserID", userId);
         db.AddParameter("@ResetToken", token);
@@ -105,7 +149,7 @@ public class UserManager
 
     public bool ResetPassword(string token, string newPassword)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.AddParameter("@ResetToken", token);
         db.Execute("spGetUserIDByResetToken");
         if (db.Count == 1)
@@ -122,34 +166,35 @@ public class UserManager
 
     public void LogUserActivity(int userId, string activity)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.AddParameter("@UserID", userId);
         db.AddParameter("@Activity", activity);
         db.AddParameter("@ActivityDate", DateTime.Now);
         db.Execute("spLogUserActivity");
     }
 
-    // Add the AuthenticateUser method
-    public bool AuthenticateUser(string username, string password, out User authenticatedUser)
+    public User AuthenticateUser(string username, string password)
     {
-        db = new clsDataConnection();
+        clsDataConnection db = new clsDataConnection();
         db.AddParameter("@Username", username);
-        db.AddParameter("@Password", PasswordHelper.HashPassword(password));
-        db.Execute("spAuthenticateUser");
+        db.Execute("spGetUserByUsername");
 
         if (db.Count == 1)
         {
             DataRow row = db.DataTable.Rows[0];
-            authenticatedUser = new User
+            string storedPassword = row["Password"].ToString();
+
+            if (PasswordHelper.VerifyPassword(password, storedPassword))
             {
-                UserID = Convert.ToInt32(row["UserID"]),
-                Username = row["Username"].ToString(),
-                Email = row["Email"].ToString(),
-                Role = row["Role"].ToString()
-            };
-            return true;
+                return new User
+                {
+                    UserID = Convert.ToInt32(row["UserID"]),
+                    Username = row["Username"].ToString(),
+                    Email = row["Email"].ToString(),
+                    Role = row["Role"].ToString()
+                };
+            }
         }
-        authenticatedUser = null;
-        return false;
+        return null;
     }
 }

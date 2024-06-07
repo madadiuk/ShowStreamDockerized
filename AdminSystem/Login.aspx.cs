@@ -1,34 +1,41 @@
 using ClassLibrary;
 using System;
-using System.Web.UI;
 
-public partial class Login : Page
+public partial class Login : System.Web.UI.Page
 {
+    private UserManager userManager = new UserManager();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            // Any initialization if needed
+            // Initial page load actions, if any
         }
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        string username = txtUsername.Text;
-        string password = txtPassword.Text;
-        UserManager userManager = new UserManager();
-        User authenticatedUser; // Declare the variable here
+        string username = txtUsername.Text.Trim();
+        string password = txtPassword.Text.Trim();
 
-        if (userManager.AuthenticateUser(username, password, out authenticatedUser))
+        try
         {
-            Session["UserID"] = authenticatedUser.UserID;
-            Session["Username"] = authenticatedUser.Username;
-            Session["Role"] = authenticatedUser.Role;
-            Response.Redirect("Dashboard.aspx");
+            User user = userManager.AuthenticateUser(username, password);
+            if (user != null)
+            {
+                Session["UserID"] = user.UserID;
+                Session["Username"] = user.Username;
+                Session["Role"] = user.Role;
+                Response.Redirect("Dashboard.aspx");
+            }
+            else
+            {
+                lblMessage.Text = "Invalid username or password.";
+            }
         }
-        else
+        catch (Exception ex)
         {
-            lblMessage.Text = "Invalid username or password.";
+            lblMessage.Text = "Error during login: " + ex.Message;
         }
     }
 }
