@@ -1,7 +1,7 @@
 CREATE PROCEDURE spDeleteAllUsers
 AS
 BEGIN
-    DELETE FROM Users;
+    DELETE FROM tblUsers;
 END
 GO
 
@@ -837,33 +837,6 @@ END
 
 GO
 
-
-CREATE PROCEDURE spGetUserIDByResetToken
-    @ResetToken NVARCHAR(255)
-AS
-BEGIN
-    DECLARE @ResetTokens TABLE (UserID INT, ResetToken NVARCHAR(255), ExpiryDate DATETIME);
-    INSERT INTO @ResetTokens (UserID, ResetToken, ExpiryDate)
-    SELECT UserID, @ResetToken, DATEADD(hour, 1, GETDATE());
-
-    SELECT UserID
-    FROM @ResetTokens
-    WHERE ResetToken = @ResetToken AND ExpiryDate > GETDATE();
-END
-
-GO
-
-
-CREATE PROCEDURE spResetPassword
-    @UserID INT,
-    @Password NVARCHAR(255)
-AS
-BEGIN
-    UPDATE tblUsers
-    SET Password = @Password
-    WHERE UserID = @UserID
-END
-GO
 -- Stored procedure to clean tblDownloads
 CREATE PROCEDURE spCleanTblDownloads
 AS
