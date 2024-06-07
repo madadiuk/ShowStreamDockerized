@@ -7,35 +7,25 @@ public partial class Login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            // Initial page load actions, if any
-        }
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        string username = txtUsername.Text.Trim();
-        string password = txtPassword.Text.Trim();
+        string username = txtUsername.Text;
+        string password = txtPassword.Text;
+        User user = userManager.AuthenticateUser(username, password);
 
-        try
+        if (user != null)
         {
-            User user = userManager.AuthenticateUser(username, password);
-            if (user != null)
-            {
-                Session["UserID"] = user.UserID;
-                Session["Username"] = user.Username;
-                Session["Role"] = user.Role;
-                Response.Redirect("Dashboard.aspx");
-            }
-            else
-            {
-                lblMessage.Text = "Invalid username or password.";
-            }
+            // User authenticated successfully
+            lblMessage.Text = "Login successful. Welcome, " + user.Username + "!";
+            // Redirect to another page or do something else
+            Response.Redirect("TeamMainMenu.aspx");
         }
-        catch (Exception ex)
+        else
         {
-            lblMessage.Text = "Error during login: " + ex.Message;
+            // Authentication failed
+            lblMessage.Text = "Invalid username or password.";
         }
     }
 }

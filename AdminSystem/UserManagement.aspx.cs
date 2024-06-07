@@ -1,9 +1,8 @@
 using ClassLibrary;
 using System;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class UserManagement : Page
+public partial class UserManagement : System.Web.UI.Page
 {
     private UserManager userManager = new UserManager();
 
@@ -50,69 +49,42 @@ public partial class UserManagement : Page
         }
     }
 
-    protected void btnEditUser_Click(object sender, EventArgs e)
+    protected void btnFindUser_Click(object sender, EventArgs e)
     {
         try
         {
             int userId = Convert.ToInt32(txtUserID.Text);
-            User user = new User
-            {
-                UserID = userId,
-                Username = txtUsername.Text,
-                Email = txtEmail.Text,
-                Password = txtPassword.Text,
-                Role = ddlRole.SelectedValue
-            };
+            User user = userManager.GetUserById(userId);
 
-            userManager.UpdateUser(user);
-            BindUserGrid();
-            lblMessage.Text = "User updated successfully.";
+            if (user != null)
+            {
+                txtUsername.Text = user.Username;
+                txtEmail.Text = user.Email;
+                ddlRole.SelectedValue = user.Role;
+                lblMessage.Text = "User found.";
+            }
+            else
+            {
+                lblMessage.Text = "User not found.";
+            }
         }
         catch (Exception ex)
         {
-            lblMessage.Text = "Error updating user: " + ex.Message;
+            lblMessage.Text = "Error finding user: " + ex.Message;
         }
     }
 
     protected void gvUsers_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        gvUsers.EditIndex = e.NewEditIndex;
-        BindUserGrid();
-    }
-
-    protected void gvUsers_RowUpdating(object sender, GridViewUpdateEventArgs e)
-    {
         try
         {
-            int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
-            GridViewRow row = gvUsers.Rows[e.RowIndex];
-            string username = ((TextBox)row.Cells[1].Controls[0]).Text;
-            string email = ((TextBox)row.Cells[2].Controls[0]).Text;
-            string role = ((DropDownList)row.FindControl("ddlRoleEdit")).SelectedValue;
-
-            User user = new User
-            {
-                UserID = userId,
-                Username = username,
-                Email = email,
-                Role = role
-            };
-
-            userManager.UpdateUser(user);
-            gvUsers.EditIndex = -1;
+            gvUsers.EditIndex = e.NewEditIndex;
             BindUserGrid();
-            lblMessage.Text = "User updated successfully.";
         }
         catch (Exception ex)
         {
-            lblMessage.Text = "Error updating user: " + ex.Message;
+            lblMessage.Text = "Error editing user: " + ex.Message;
         }
-    }
-
-    protected void gvUsers_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-    {
-        gvUsers.EditIndex = -1;
-        BindUserGrid();
     }
 
     protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -130,32 +102,57 @@ public partial class UserManagement : Page
         }
     }
 
-
-
-protected void gvUsers_RowCommand(object sender, GridViewCommandEventArgs e)
+    protected void gvUsers_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        if (e.CommandName == "PromoteToAdmin")
+        try
         {
-            int userId = Convert.ToInt32(e.CommandArgument);
-            try
+            GridViewRow row = gvUsers.Rows[e.RowIndex];
+            int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
+
+            TextBox txtUsername = row.FindControl("txtUsername") as TextBox;
+            TextBox txtEmail = row.FindControl("txtEmail") as TextBox;
+            DropDownList ddlRole = row.FindControl("ddlRole") as DropDownList;
+
+            if (txtUsername != null && txtEmail != null && ddlRole != null)
             {
-                User user = userManager.GetUserById(userId);
-                if (user != null)
+                string username = txtUsername.Text;
+                string email = txtEmail.Text;
+                string role = ddlRole.SelectedValue;
+
+                User user = new User
                 {
-                    user.Role = "Admin";
-                    userManager.UpdateUser(user);
-                    BindUserGrid();
-                    lblMessage.Text = "User promoted to admin successfully.";
-                }
-                else
-                {
-                    lblMessage.Text = "User not found.";
-                }
+                    UserID = userId,
+                    Username = username,
+                    Email = email,
+                    Role = role
+                };
+
+                userManager.UpdateUser(user);
+                gvUsers.EditIndex = -1;
+                BindUserGrid();
+                lblMessage.Text = "User updated successfully.";
             }
-            catch (Exception ex)
+            else
             {
-                lblMessage.Text = "Error promoting user: " + ex.Message;
+                lblMessage.Text = "Error updating user: One or more fields are null.";
             }
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = "Error updating user: " + ex.Message;
+        }
+    }
+
+    protected void gvUsers_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+        try
+        {
+            gvUsers.EditIndex = -1;
+            BindUserGrid();
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = "Error canceling edit: " + ex.Message;
         }
     }
 }

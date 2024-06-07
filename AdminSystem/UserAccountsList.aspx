@@ -6,38 +6,51 @@
     <title>User Accounts List</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
-<body class="useraccountslist">
-    <header>
+<body>
+    <form id="form1" runat="server">
         <div class="container">
-            <div id="branding">
-                <h1>User Accounts List</h1>
-            </div>
+            <h1>User Accounts List</h1>
             <nav>
                 <ul>
-                    <li><a href="UserAccountsList.aspx" class="btn">User Accounts List</a></li>
-                    <li><a href="UserManagement.aspx" class="btn">User Management</a></li>
+                    <li><a href="UserAccountsList.aspx">User Accounts List</a></li>
+                    <li><a href="UserManagement.aspx">User Management</a></li>
                 </ul>
             </nav>
+            <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" DataKeyNames="UserID" OnRowEditing="gvUsers_RowEditing" OnRowCancelingEdit="gvUsers_RowCancelingEdit" OnRowUpdating="gvUsers_RowUpdating" OnRowDeleting="gvUsers_RowDeleting">
+                <Columns>
+                    <asp:BoundField DataField="UserID" HeaderText="User ID" ReadOnly="True" />
+                    <asp:TemplateField HeaderText="Username">
+                        <ItemTemplate>
+                            <%# Eval("Username") %>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtUsername" runat="server" Text='<%# Bind("Username") %>' />
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Email">
+                        <ItemTemplate>
+                            <%# Eval("Email") %>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtEmail" runat="server" Text='<%# Bind("Email") %>' />
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Role">
+                        <ItemTemplate>
+                            <%# Eval("Role") %>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:DropDownList ID="ddlRole" runat="server">
+                                <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
+                                <asp:ListItem Text="User" Value="User"></asp:ListItem>
+                            </asp:DropDownList>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+                    <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                </Columns>
+            </asp:GridView>
+            <asp:Label ID="lblMessage" runat="server" CssClass="error-message"></asp:Label>
         </div>
-    </header>
-
-    <div class="container">
-        <div class="main-content">
-            <form id="form1" runat="server">
-                <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" DataKeyNames="UserID"
-                    OnRowEditing="gvUsers_RowEditing" OnRowUpdating="gvUsers_RowUpdating" OnRowCancelingEdit="gvUsers_RowCancelingEdit"
-                    OnRowDeleting="gvUsers_RowDeleting">
-                    <Columns>
-                        <asp:BoundField DataField="UserID" HeaderText="User ID" />
-                        <asp:BoundField DataField="Username" HeaderText="Username" />
-                        <asp:BoundField DataField="Email" HeaderText="Email" />
-                        <asp:BoundField DataField="Role" HeaderText="Role" />
-                        <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
-                    </Columns>
-                </asp:GridView>
-                <asp:Label ID="lblMessage" runat="server" CssClass="message-label"></asp:Label>
-            </form>
-        </div>
-    </div>
+    </form>
 </body>
 </html>
