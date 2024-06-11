@@ -30,8 +30,11 @@ public partial class Register : System.Web.UI.Page
             };
 
             userManager.AddUser(user);
-            lblMessage.Text = "Registration successful. You can now log in.";
+            lblMessage.Text = "Registration successful. Redirecting to main menu...";
             lblMessage.ForeColor = System.Drawing.Color.Green;
+
+            // Redirect to TeamMainMenu.aspx after a short delay
+            Response.AddHeader("REFRESH", "3;URL=TeamMainMenu.aspx");
         }
         catch (Exception ex)
         {

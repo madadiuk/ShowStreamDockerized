@@ -1,5 +1,6 @@
 using ClassLibrary;
 using System;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace AdminSystem
@@ -76,6 +77,29 @@ namespace AdminSystem
             }
         }
 
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string searchUsername = txtSearchUsername.Text.Trim();
+                string searchEmail = txtSearchEmail.Text.Trim();
+                string searchRole = ddlSearchRole.SelectedValue != "All" ? ddlSearchRole.SelectedValue : null;
+
+                List<User> users = userManager.SearchUsers(
+                    string.IsNullOrEmpty(searchUsername) ? null : searchUsername,
+                    string.IsNullOrEmpty(searchEmail) ? null : searchEmail,
+                    searchRole
+                );
+
+                gvUsers.DataSource = users;
+                gvUsers.DataBind();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error searching users: " + ex.Message;
+            }
+        }
+
         protected void gvUsers_RowEditing(object sender, GridViewEditEventArgs e)
         {
             try
@@ -110,22 +134,34 @@ namespace AdminSystem
             {
                 GridViewRow row = gvUsers.Rows[e.RowIndex];
                 int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
-                string username = (row.FindControl("txtUsername") as TextBox).Text;
-                string email = (row.FindControl("txtEmail") as TextBox).Text;
-                string role = (row.FindControl("ddlRole") as DropDownList).SelectedValue;
 
-                User user = new User
+                TextBox txtEditUsername = row.FindControl("txtEditUsername") as TextBox;
+                TextBox txtEditEmail = row.FindControl("txtEditEmail") as TextBox;
+                DropDownList ddlEditRole = row.FindControl("ddlEditRole") as DropDownList;
+
+                if (txtEditUsername != null && txtEditEmail != null && ddlEditRole != null)
                 {
-                    UserID = userId,
-                    Username = username,
-                    Email = email,
-                    Role = role
-                };
+                    string username = txtEditUsername.Text;
+                    string email = txtEditEmail.Text;
+                    string role = ddlEditRole.SelectedValue;
 
-                userManager.UpdateUser(user);
-                gvUsers.EditIndex = -1;
-                BindUserGrid();
-                lblMessage.Text = "User updated successfully.";
+                    User user = new User
+                    {
+                        UserID = userId,
+                        Username = username,
+                        Email = email,
+                        Role = role
+                    };
+
+                    userManager.UpdateUser(user);
+                    gvUsers.EditIndex = -1;
+                    BindUserGrid();
+                    lblMessage.Text = "User updated successfully.";
+                }
+                else
+                {
+                    lblMessage.Text = "Error: Unable to find control in GridView row.";
+                }
             }
             catch (Exception ex)
             {
