@@ -14,6 +14,12 @@ public class UserManager
     {
         ValidateUser(user);
 
+        // Check if the user already exists
+        if (UserExists(user.Username, user.Email))
+        {
+            throw new Exception("A user with the same username or email already exists.");
+        }
+
         try
         {
             clsDataConnection db = new clsDataConnection();
@@ -85,6 +91,22 @@ public class UserManager
         return true;
     }
 
+    public bool UserExists(string username, string email)
+    {
+        try
+        {
+            clsDataConnection db = new clsDataConnection();
+            db.AddParameter("@Username", username);
+            db.AddParameter("@Email", email);
+            db.Execute("spCheckUserExists");
+            return db.Count > 0;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error checking if user exists in the database: " + ex.Message);
+        }
+    }
+
     public void DeleteUser(int userId)
     {
         try
@@ -98,7 +120,6 @@ public class UserManager
             throw new Exception("Error deleting user from the database: " + ex.Message);
         }
     }
-
 
     public void UpdateUser(User user)
     {
@@ -200,21 +221,17 @@ public class UserManager
         }
     }
 
-    public List<User> SearchUsers(string username = null, string email = null, string role = null)
+    public List<User> SearchUsers(string username, string email, string role)
     {
+        List<User> users = new List<User>();
         try
         {
             clsDataConnection db = new clsDataConnection();
-            if (!string.IsNullOrEmpty(username))
-                db.AddParameter("@Username", username);
-            if (!string.IsNullOrEmpty(email))
-                db.AddParameter("@Email", email);
-            if (!string.IsNullOrEmpty(role))
-                db.AddParameter("@Role", role);
-
+            db.AddParameter("@Username", (object)username ?? DBNull.Value);
+            db.AddParameter("@Email", (object)email ?? DBNull.Value);
+            db.AddParameter("@Role", (object)role ?? DBNull.Value);
             db.Execute("spSearchUsers");
 
-            List<User> users = new List<User>();
             foreach (DataRow row in db.DataTable.Rows)
             {
                 users.Add(new User
@@ -225,12 +242,12 @@ public class UserManager
                     Role = row["Role"].ToString()
                 });
             }
-            return users;
         }
         catch (Exception ex)
         {
-            throw new Exception("Error searching users from the database: " + ex.Message);
+            throw new Exception("Error searching users in the database: " + ex.Message);
         }
+        return users;
     }
 
     public string GeneratePasswordResetToken(int userId)

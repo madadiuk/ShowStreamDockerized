@@ -32,23 +32,33 @@ namespace AdminSystem
 
         protected void btnAddUser_Click(object sender, EventArgs e)
         {
-            try
+            if (Page.IsValid)
             {
-                User user = new User
+                try
                 {
-                    Username = txtUsername.Text,
-                    Email = txtEmail.Text,
-                    Password = txtPassword.Text,
-                    Role = ddlRole.SelectedValue
-                };
+                    User user = new User
+                    {
+                        Username = txtUsername.Text,
+                        Email = txtEmail.Text,
+                        Password = txtPassword.Text,
+                        Role = ddlRole.SelectedValue
+                    };
 
-                userManager.AddUser(user);
-                BindUserGrid();
-                lblMessage.Text = "User added successfully.";
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Error adding user: " + ex.Message;
+                    if (userManager.GetUserByUsername(user.Username) != null)
+                    {
+                        lblMessage.Text = "Username already exists.";
+                    }
+                    else
+                    {
+                        userManager.AddUser(user);
+                        BindUserGrid();
+                        lblMessage.Text = "User added successfully.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Error adding user: " + ex.Message;
+                }
             }
         }
 
@@ -83,12 +93,12 @@ namespace AdminSystem
             {
                 string searchUsername = txtSearchUsername.Text.Trim();
                 string searchEmail = txtSearchEmail.Text.Trim();
-                string searchRole = ddlSearchRole.SelectedValue != "All" ? ddlSearchRole.SelectedValue : null;
+                string searchRole = ddlSearchRole.SelectedValue;
 
                 List<User> users = userManager.SearchUsers(
                     string.IsNullOrEmpty(searchUsername) ? null : searchUsername,
                     string.IsNullOrEmpty(searchEmail) ? null : searchEmail,
-                    searchRole
+                    searchRole == "All" ? null : searchRole
                 );
 
                 gvUsers.DataSource = users;

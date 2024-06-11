@@ -27,18 +27,18 @@
                 <div class="form-group">
                     <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
                     <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername" ErrorMessage="Username is required." ForeColor="Red" />
+                    <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername" ErrorMessage="Username is required." ForeColor="Red" ValidationGroup="AddUser" />
                 </div>
                 <div class="form-group">
                     <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
                     <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="Password is required." ForeColor="Red" />
+                    <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="Password is required." ForeColor="Red" ValidationGroup="AddUser" />
                 </div>
                 <div class="form-group">
                     <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
                     <asp:TextBox ID="txtEmail" runat="server" TextMode="Email"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email is required." ForeColor="Red" />
-                    <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Invalid email format." ValidationExpression="\w+([-+.’]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="Red" />
+                    <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email is required." ForeColor="Red" ValidationGroup="AddUser" />
+                    <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Invalid email format." ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="Red" ValidationGroup="AddUser" />
                 </div>
                 <div class="form-group">
                     <asp:Label ID="lblRole" runat="server" Text="Role:"></asp:Label>
@@ -48,14 +48,12 @@
                     </asp:DropDownList>
                 </div>
                 <div class="form-group">
-                    <asp:Button ID="btnAddUser" runat="server" Text="Add User" OnClick="btnAddUser_Click" />
+                    <asp:Button ID="btnAddUser" runat="server" Text="Add User" OnClick="btnAddUser_Click" ValidationGroup="AddUser" />
                     <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
                 </div>
                 <div class="form-group">
                     <asp:Label ID="lblUserID" runat="server" Text="User ID:"></asp:Label>
                     <asp:TextBox ID="txtUserID" runat="server"></asp:TextBox>
-                </div>
-                <div class="form-group">
                     <asp:Button ID="btnFindUser" runat="server" Text="Find User" OnClick="btnFindUser_Click" />
                 </div>
                 <div class="form-group">
@@ -79,38 +77,38 @@
                 </div>
                 <div class="form-group">
                    <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" DataKeyNames="UserID" OnRowEditing="gvUsers_RowEditing" OnRowDeleting="gvUsers_RowDeleting" OnRowUpdating="gvUsers_RowUpdating" OnRowCancelingEdit="gvUsers_RowCancelingEdit">
-                       <Columns>
-                           <asp:BoundField DataField="UserID" HeaderText="User ID" ReadOnly="True" />
-                           <asp:TemplateField HeaderText="Username">
-                               <ItemTemplate>
-                                   <%# Eval("Username") %>
-                               </ItemTemplate>
-                               <EditItemTemplate>
-                                   <asp:TextBox ID="txtEditUsername" runat="server" Text='<%# Bind("Username") %>' />
-                               </EditItemTemplate>
-                           </asp:TemplateField>
-                           <asp:TemplateField HeaderText="Email">
-                               <ItemTemplate>
-                                   <%# Eval("Email") %>
-                               </ItemTemplate>
-                               <EditItemTemplate>
-                                   <asp:TextBox ID="txtEditEmail" runat="server" Text='<%# Bind("Email") %>' TextMode="Email" />
-                               </EditItemTemplate>
-                           </asp:TemplateField>
-                           <asp:TemplateField HeaderText="Role">
-                               <ItemTemplate>
-                                   <%# Eval("Role") %>
-                               </ItemTemplate>
-                               <EditItemTemplate>
-                                   <asp:DropDownList ID="ddlEditRole" runat="server" SelectedValue='<%# Bind("Role") %>'>
-                                       <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
-                                       <asp:ListItem Text="User" Value="User"></asp:ListItem>
-                                   </asp:DropDownList>
-                               </EditItemTemplate>
-                           </asp:TemplateField>
-                           <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
-                       </Columns>
-                   </asp:GridView>
+                        <Columns>
+                            <asp:BoundField DataField="UserID" HeaderText="User ID" ReadOnly="True" />
+                            <asp:TemplateField HeaderText="Username">
+                                <ItemTemplate>
+                                    <%# Eval("Username") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtEditUsername" runat="server" Text='<%# Bind("Username") %>' />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Email">
+                                <ItemTemplate>
+                                    <%# Eval("Email") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtEditEmail" runat="server" Text='<%# Bind("Email") %>' TextMode="Email" />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Role">
+                                <ItemTemplate>
+                                    <%# Eval("Role") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:DropDownList ID="ddlEditRole" runat="server" SelectedValue='<%# Bind("Role") %>'>
+                                        <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
+                                        <asp:ListItem Text="User" Value="User"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                        </Columns>
+                    </asp:GridView>
                 </div>
             </form>
         </div>
